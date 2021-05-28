@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:otp_storage/Database.dart';
 
 import 'QRScanner.dart';
 
 void main() {
+  DB();
   runApp(MyApp());
 }
 
