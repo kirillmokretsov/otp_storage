@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:otp_storage/Database.dart';
 
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
 
 void main() async {
-  List<Secret> _listOfSecrets = await DB().getSecrets();
+  WidgetsFlutterBinding.ensureInitialized();
+  List<Secret> _listOfSecrets = await DB().getSecrets(); // TODO: throws error
   runApp(MyApp(_listOfSecrets));
 }
 
@@ -37,6 +39,7 @@ class OTPsListPage extends StatelessWidget {
         subtitle: Text(name),
       ); // TODO: create ListTile
 
+  // TODO: add dividers
   List<ListTile> buildTiles() => List.generate(
         _listOfSecrets.length,
         (index) => buildTile(_listOfSecrets[index].id,
