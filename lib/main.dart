@@ -12,10 +12,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        body: Center(
-          child: Text("Hello World"),
-        ),
+      home: OTPsListPage(),
+    );
+  }
+}
+
+class OTPsListPage extends StatelessWidget {
+  const OTPsListPage({Key key}) : super(key: key);
+
+  ListTile buildTile() => ListTile(); // TODO: create ListTile
+
+  List<ListTile> buildTiles() => []; // TODO: generate list of ListTiles
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("OTP Storage"),
+      ),
+      body: ListView(
+        children: buildTiles(),
       ),
     );
   }
