@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:otp_storage/Database.dart';
 
 import 'QRScanner.dart';
+import 'SecretDataModel.dart';
 
-void main() {
-  DB();
-  runApp(MyApp());
+void main() async {
+  List<Secret> _listOfSecrets = await DB().getSecrets();
+  runApp(MyApp(_listOfSecrets));
 }
 
 class MyApp extends StatelessWidget {
+  
+  final List<Secret> _listOfSecrets;
+  
+  MyApp(this._listOfSecrets);
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,13 +22,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OTPsListPage(),
+      home: OTPsListPage(_listOfSecrets),
     );
   }
 }
 
 class OTPsListPage extends StatelessWidget {
-  const OTPsListPage({Key key}) : super(key: key);
+
+  final List<Secret> _listOfSecrets;
+
+  const OTPsListPage(this._listOfSecrets, {Key key}) : super(key: key);
 
   ListTile buildTile() => ListTile(); // TODO: create ListTile
 
