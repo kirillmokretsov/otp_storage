@@ -10,11 +10,10 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  
   final List<Secret> _listOfSecrets;
-  
+
   MyApp(this._listOfSecrets);
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,14 +27,21 @@ class MyApp extends StatelessWidget {
 }
 
 class OTPsListPage extends StatelessWidget {
-
   final List<Secret> _listOfSecrets;
 
   const OTPsListPage(this._listOfSecrets, {Key key}) : super(key: key);
 
-  ListTile buildTile() => ListTile(); // TODO: create ListTile
+  ListTile buildTile(int id, String secret, String name) => ListTile(
+        leading: Text(id.toString()),
+        title: Text(secret),
+        subtitle: Text(name),
+      ); // TODO: create ListTile
 
-  List<ListTile> buildTiles() => []; // TODO: generate list of ListTiles
+  List<ListTile> buildTiles() => List.generate(
+        _listOfSecrets.length,
+        (index) => buildTile(_listOfSecrets[index].id,
+            _listOfSecrets[index].secret, _listOfSecrets[index].name),
+      );
 
   @override
   Widget build(BuildContext context) {
