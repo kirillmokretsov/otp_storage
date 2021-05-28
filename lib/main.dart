@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Hello World App',
+      title: 'OTP Storage',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
