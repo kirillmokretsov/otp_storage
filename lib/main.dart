@@ -33,6 +33,12 @@ class OTPsListPage extends StatelessWidget {
       body: ListView(
         children: buildTiles(),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+
+        },
+        child: Icon(Icons.qr_code_scanner),
+      ),
     );
   }
 }
