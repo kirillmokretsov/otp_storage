@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'QRScanner.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -35,7 +37,10 @@ class OTPsListPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => QRViewExample()),
+          );
         },
         child: Icon(Icons.qr_code_scanner),
       ),
