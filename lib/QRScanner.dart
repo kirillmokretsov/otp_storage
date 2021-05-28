@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+// TODO: check that user have camera otherwise he should upload image or enter secret himself
 class QRViewExample extends StatefulWidget {
   const QRViewExample({
     Key key,
