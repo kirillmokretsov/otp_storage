@@ -39,7 +39,7 @@ class OTPsListPage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => QRViewExample()),
+            MaterialPageRoute(builder: (context) => QRScanner()),
           );
         },
         child: Icon(Icons.qr_code_scanner),
