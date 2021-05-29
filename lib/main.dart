@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp_storage/Database.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
