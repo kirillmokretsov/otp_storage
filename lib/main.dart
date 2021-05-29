@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp_storage/Database.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
@@ -59,11 +62,20 @@ class OTPsListPage extends StatelessWidget {
         children: buildTiles(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => QRScanner()),
           );
+          if (result is String) {
+            final code = result;
+            var list = code.split("&issuer=");
+            var secretIndex = list[0].indexOf("?secret=");
+            var secret = list[0].substring(secretIndex + 8);
+            var name = list[1];
+            DB().insertSecret(Secret(Random.secure().nextInt(1000), secret, name));
+          }
+          // TODO: update list
         },
         child: Icon(Icons.qr_code_scanner),
       ),
