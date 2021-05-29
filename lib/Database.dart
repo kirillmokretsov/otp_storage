@@ -15,11 +15,9 @@ class DB {
     return _singleton;
   }
 
-  DB._internal() {
-    _initDB();
-  }
+  DB._internal();
 
-  _initDB() async {
+  initDB() async {
     database = openDatabase(
       join(await getDatabasesPath(), dbName),
       onCreate: (db, version) {

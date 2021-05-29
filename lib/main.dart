@@ -7,7 +7,10 @@ import 'SecretDataModel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  List<Secret> _listOfSecrets = await DB().getSecrets(); // TODO: throws error
+  // Strangely, async method shouldn't be called in constructor
+  // even if you await database in other methods
+  await DB().initDB();
+  List<Secret> _listOfSecrets = await DB().getSecrets();
   runApp(MyApp(_listOfSecrets));
 }
 
