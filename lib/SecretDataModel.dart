@@ -1,5 +1,7 @@
 import 'package:otp_storage/main.dart';
 
+import 'Utils.dart';
+
 class Secret {
   final String id;
   final OTPType type;
@@ -27,26 +29,30 @@ class Secret {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'type': type,
+        'type': type.toString(),
         'label': label,
         'secret': secret,
         'issuer': issuer,
         'counter': counter,
         'period': period,
         'digits': digits,
-        'tags': tags,
+        'algorithm': algorithm.toString(),
+        'tags': tags.toString(),
       };
 
   static Secret fromMap(Map<String, dynamic> map) => Secret(
-      id: map['id'],
-      type: map['type'],
-      label: map['label'],
-      secret: map['secret'],
-      issuer: map['issuer'],
-      counter: map['counter'],
-      period: map['period'],
-      digits: map['algorithm'],
-      tags: map['tags']);
+        id: map['id'],
+        type: Utils.parseOTPType(map['type']),
+        label: map['label'],
+        secret: map['secret'],
+        issuer: map['issuer'],
+        counter: map['counter'],
+        period: map['period'],
+        digits: map['digits'],
+        algorithm: Utils.parseOTPAlgorithm(map['algorithm']),
+        // TODO: fill tags normally
+        tags: [map['tags']],
+      );
 
   String toString() =>
       "Secret(id $id, type $type, label $label, secret $secret, issuer $issuer, counter $counter, period $period, digits $digits, tags $tags";
