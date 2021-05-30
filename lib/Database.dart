@@ -34,6 +34,12 @@ class DB {
     await db.insert(tableName, secret.toMap());
   }
 
+  Future<Secret> getSecretById(int id) async {
+    final db = await database;
+    final Map<String, dynamic> map = (await db.query(tableName, where: 'id = ?', whereArgs: [id]))[0];
+    return Secret(map['id'], map['secret'], map['name']);
+  }
+
   Future<List<Secret>> getSecrets() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableName);

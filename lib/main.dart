@@ -33,23 +33,26 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class OTPsListPage extends StatelessWidget {
+class OTPsListPage extends StatefulWidget {
+
   final List<Secret> _listOfSecrets;
 
   const OTPsListPage(this._listOfSecrets, {Key key}) : super(key: key);
 
-  ListTile buildTile(int id, String secret, String name) => ListTile(
-        leading: Text(id.toString()),
-        title: Text(secret),
-        subtitle: Text(name),
-      ); // TODO: create ListTile
+  @override
+  _OTPsListPageState createState() => _OTPsListPageState(_listOfSecrets);
+}
 
-  // TODO: add dividers
-  List<ListTile> buildTiles() => List.generate(
-        _listOfSecrets.length,
-        (index) => buildTile(_listOfSecrets[index].id,
-            _listOfSecrets[index].secret, _listOfSecrets[index].name),
-      );
+class _OTPsListPageState extends State<OTPsListPage> {
+  final List<Secret> _listOfSecrets;
+
+  _OTPsListPageState(this._listOfSecrets);
+
+  ListTile buildTile(BuildContext context, int index) => ListTile(
+        leading: Text(_listOfSecrets[index].id.toString()),
+        title: Text(_listOfSecrets[index].secret),
+        subtitle: Text(_listOfSecrets[index].name),
+      ); // TODO: create ListTile
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +60,10 @@ class OTPsListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("OTP Storage"),
       ),
-      body: ListView(
-        children: buildTiles(),
+      body: ListView.separated(
+        itemCount: _listOfSecrets.length,
+        itemBuilder: buildTile,
+        separatorBuilder: (BuildContext context, int index) => Divider(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -66,15 +71,24 @@ class OTPsListPage extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => QRScanner()),
           );
+          int id;
           if (result is String) {
             final code = result;
             var list = code.split("&issuer=");
             var secretIndex = list[0].indexOf("?secret=");
             var secret = list[0].substring(secretIndex + 8);
             var name = list[1];
-            DB().insertSecret(Secret(Random.secure().nextInt(1000), secret, name));
+
+            id = Random.secure().nextInt(1000);
+            DB().insertSecret(
+                Secret(id, secret, name));
           }
-          // TODO: update list
+
+          Secret secret = await DB().getSecretById(id);
+
+          setState(() {
+            _listOfSecrets.add(secret);
+          });
         },
         child: Icon(Icons.qr_code_scanner),
       ),
