@@ -48,9 +48,11 @@ class _OTPsListPageState extends State<OTPsListPage> {
   _OTPsListPageState(this._listOfSecrets);
 
   ListTile buildTile(BuildContext context, int index) => ListTile(
-        leading: Text(_listOfSecrets[index].id.toString()),
         title: OTPText(_listOfSecrets[index].secret),
-        subtitle: Text(_listOfSecrets[index].name),
+        subtitle: Text(
+          _listOfSecrets[index].name,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
       ); // TODO: create ListTile
 
   @override
@@ -59,10 +61,13 @@ class _OTPsListPageState extends State<OTPsListPage> {
       appBar: AppBar(
         title: Text("OTP Storage"),
       ),
-      body: ListView.separated(
-        itemCount: _listOfSecrets.length,
-        itemBuilder: buildTile,
-        separatorBuilder: (BuildContext context, int index) => Divider(),
+      body: Container(
+        margin: EdgeInsets.all(16),
+        child: ListView.separated(
+          itemCount: _listOfSecrets.length,
+          itemBuilder: buildTile,
+          separatorBuilder: (BuildContext context, int index) => Divider(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

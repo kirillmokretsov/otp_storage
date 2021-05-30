@@ -23,6 +23,7 @@ class _OTPTextState extends State<OTPText> {
     return Text(
       OTP.generateTOTPCodeString(
           _secret, DateTime.now().millisecondsSinceEpoch, algorithm: Algorithm.SHA1),
+      style: Theme.of(context).textTheme.headline6,
     );
   }
 
