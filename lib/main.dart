@@ -152,8 +152,18 @@ class _OTPsListPageState extends State<OTPsListPage> {
             }
 
             id = Uuid().v4();
-            // TODO: use new constructor
-            // DB().insertSecret(Secret(id, secret, label));
+            DB().insertSecret(Secret(
+              id: id,
+              type: type,
+              label: label,
+              secret: (secret as String),
+              issuer: (issuer as String),
+              counter: (counter as int),
+              period: (period as int),
+              digits: (digits as int),
+              algorithm: (algorithm as OTPAlgorithm),
+              tags: tags,
+            ));
           }
 
           Secret secret = await DB().getSecretById(id);
