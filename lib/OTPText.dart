@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
+import 'package:otp_storage/main.dart';
+
+import 'SecretDataModel.dart';
 
 class OTPText extends StatefulWidget {
-  final String _secret;
+  final Secret _secret;
 
   const OTPText(this._secret, {Key key}) : super(key: key);
 
@@ -13,16 +16,35 @@ class OTPText extends StatefulWidget {
 }
 
 class _OTPTextState extends State<OTPText> {
-  String _secret;
+  Secret _secret;
   Timer updateUI;
 
   _OTPTextState(this._secret);
 
+  String getCode() {
+    if (_secret.type == OTPType.TOTP) {
+      return OTP.generateTOTPCodeString(
+        _secret.id,
+        DateTime.now().millisecondsSinceEpoch,
+        length: _secret.digits,
+        interval: _secret.period,
+        algorithm: _secret.algorithm,
+      );
+    } else if (_secret.type == OTPType.HOTP) {
+      return OTP.generateHOTPCodeString(
+        _secret.secret,
+        _secret.counter,
+        length: _secret.digits,
+        algorithm: _secret.algorithm,
+      );
+    } else
+      throw Exception("Unknown OTP type");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Text(
-      OTP.generateTOTPCodeString(
-          _secret, DateTime.now().millisecondsSinceEpoch, algorithm: Algorithm.SHA1),
+      getCode(),
       style: Theme.of(context).textTheme.headline6,
     );
   }
