@@ -37,10 +37,7 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Expanded(
-          flex: 1,
-          child: _buildQrView(context),
-        ),
+        child: _buildQrView(context),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
