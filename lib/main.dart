@@ -81,7 +81,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 // TODO: add applicationIcon
                 applicationLegalese: 'Copyright © Kirill Mokretsov, {{ year }}',
                 applicationDescription: Text(
-                  'Storage for one-time password',
+                  'Storage for OTP password',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 children: <Widget>[
