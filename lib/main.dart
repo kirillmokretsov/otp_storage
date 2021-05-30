@@ -11,7 +11,6 @@ import 'Utils.dart';
 // TODO: add usage for tags and issuers
 // TODO: add time indicator
 // TODO: add encryption
-// TODO: add about page
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +71,6 @@ class _OTPsListPageState extends State<OTPsListPage> {
               showAboutPage(
                 context: context,
                 values: {
-                  'version': '1.0',
                   'year': DateTime.now().year.toString(),
                 },
                 title: Text(
