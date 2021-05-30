@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp/otp.dart';
@@ -44,6 +46,9 @@ class OTPsListPage extends StatefulWidget {
 
 class _OTPsListPageState extends State<OTPsListPage> {
   final List<Secret> _listOfSecrets;
+  int timeLeft;
+  Timer timerOf30sec;
+  Timer timerOf1sec;
 
   _OTPsListPageState(this._listOfSecrets);
 
@@ -55,10 +60,55 @@ class _OTPsListPageState extends State<OTPsListPage> {
       ); // TODO: create ListTile
 
   @override
+  void initState() {
+    super.initState();
+    timeLeft = 30000 - DateTime.now().millisecondsSinceEpoch % 30000;
+    Future.delayed(
+      Duration(milliseconds: timeLeft),
+      () {
+        timeLeft = 30000;
+
+        timerOf30sec = Timer.periodic(
+          Duration(seconds: 30),
+          (Timer t) {
+            timeLeft = 30000;
+            setState(() {});
+          },
+        );
+      },
+    );
+
+    timeLeft = int.parse(timeLeft.toString().substring(0, 2) + "000");
+
+    timerOf1sec = Timer.periodic(
+      Duration(seconds: 1),
+      (Timer t) {
+        timeLeft -= 1000;
+        setState(() {});
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    timerOf30sec?.cancel();
+    timerOf1sec?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("OTP Storage"),
+        actions: [
+          Row(
+            children: [
+              Text(timeLeft.toString() ?? ""),
+              Icon(Icons.timer),
+            ],
+          )
+        ],
       ),
       body: ListView.separated(
         itemCount: _listOfSecrets.length,
