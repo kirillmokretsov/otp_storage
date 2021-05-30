@@ -50,7 +50,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
   ListTile buildTile(BuildContext context, int index) => ListTile(
         title: OTPText(_listOfSecrets[index].secret),
         subtitle: Text(
-          _listOfSecrets[index].name,
+          _listOfSecrets[index].label,
           style: Theme.of(context).textTheme.bodyText2,
         ),
       ); // TODO: create ListTile
@@ -78,13 +78,81 @@ class _OTPsListPageState extends State<OTPsListPage> {
           String id;
           if (result is String) {
             final code = result;
-            var list = code.split("&issuer=");
-            var secretIndex = list[0].indexOf("?secret=");
-            var secret = list[0].substring(secretIndex + 8);
-            var name = list[1];
+            Uri uri = Uri.parse(code);
+
+            if (uri.scheme.toLowerCase() != "otpauth")
+              throw Exception("Invalid protocol");
+
+            OTPType type;
+            switch (uri.host.toLowerCase()) {
+              case "totp":
+                type = OTPType.TOTP;
+                break;
+              default:
+                throw Exception("Unknown OTP type");
+            }
+
+            String label = uri.path.toLowerCase().replaceAll('/', '') ?? "";
+
+            var parameters = uri.queryParametersAll;
+
+            dynamic secret = parameters["secret"];
+            dynamic issuer = parameters["issuer"];
+            dynamic counter = parameters["counter"];
+            dynamic period = parameters["period"];
+            dynamic digits = parameters["digits"];
+            dynamic algorithm = parameters["algorithm"];
+            List<String> tags = parameters["tags"];
+
+            if (secret == null)
+              throw Exception("Empty secret");
+            else
+              secret = (secret as List<String>).first;
+
+            if (issuer != null) issuer = (issuer as List<String>).first;
+
+            if (counter != null) {
+              counter = int.parse((counter as List<String>).first);
+            } else if (type == OTPType.HOTP) {
+              throw Exception("Empty counter for HOTP");
+            }
+
+            if (period != null) {
+              period = int.parse((period as List<String>).first);
+            } else if (type == OTPType.TOTP || type == OTPType.STEAM) {
+              period = 30;
+            }
+
+            if (digits != null)
+              digits = int.parse((digits as List<String>).first);
+            else
+              digits = type == OTPType.STEAM ? 5 : 6;
+
+            if (algorithm != null) {
+              switch ((algorithm as List<String>).first) {
+                case 'sha1':
+                  algorithm = OTPAlgorithm.SHA1;
+                  break;
+                case 'sha256':
+                  algorithm = OTPAlgorithm.SHA256;
+                  break;
+                case 'sha512':
+                  algorithm = OTPAlgorithm.SHA512;
+                  break;
+                default:
+                  algorithm = OTPAlgorithm.SHA1;
+                  break;
+              }
+            } else {
+              algorithm = OTPAlgorithm.SHA1;
+            }
+
+            if (tags == null) {
+              tags = List.empty();
+            }
 
             id = Uuid().v4();
-            DB().insertSecret(Secret(id, secret, name));
+            DB().insertSecret(Secret(id, secret, label));
           }
 
           Secret secret = await DB().getSecretById(id);
@@ -97,4 +165,17 @@ class _OTPsListPageState extends State<OTPsListPage> {
       ),
     );
   }
+}
+
+enum OTPType {
+  TOTP,
+  HOTP,
+  MOTP,
+  STEAM,
+}
+
+enum OTPAlgorithm {
+  SHA1,
+  SHA256,
+  SHA512,
 }
