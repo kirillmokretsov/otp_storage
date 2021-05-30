@@ -78,7 +78,12 @@ class _OTPsListPageState extends State<OTPsListPage> {
       },
     );
 
-    timeLeft = int.parse(timeLeft.toString().substring(0, 2) + "000");
+    var temp = timeLeft.toString();
+    if (temp.length == 5) {
+      timeLeft = int.parse(timeLeft.toString().substring(0, 2) + "000");
+    } else {
+      timeLeft = int.parse(timeLeft.toString().substring(0, 1) + "000");
+    }
 
     timerOf1sec = Timer.periodic(
       Duration(seconds: 1),
@@ -104,8 +109,17 @@ class _OTPsListPageState extends State<OTPsListPage> {
         actions: [
           Row(
             children: [
-              Text(timeLeft.toString() ?? ""),
-              Icon(Icons.timer),
+              Container(
+                margin: EdgeInsets.only(right: 8),
+                child: Text((timeLeft.toString().length == 5
+                        ? timeLeft.toString().substring(0, 2)
+                        : timeLeft.toString().substring(0, 1)) ??
+                    ""),
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 8),
+                child: Icon(Icons.timer),
+              ),
             ],
           )
         ],
