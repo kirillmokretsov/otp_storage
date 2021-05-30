@@ -7,6 +7,11 @@ import 'QRScanner.dart';
 import 'SecretDataModel.dart';
 import 'Utils.dart';
 
+// TODO: add usage for tags and issuers
+// TODO: add time indicator
+// TODO: add encryption
+// TODO: add about page
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Strangely, async method shouldn't be called in constructor
