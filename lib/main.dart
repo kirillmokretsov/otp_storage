@@ -46,9 +46,7 @@ class OTPsListPage extends StatefulWidget {
 
 class _OTPsListPageState extends State<OTPsListPage> {
   final List<Secret> _listOfSecrets;
-  int timeLeft;
-  Timer timerOf30sec;
-  Timer timerOf1sec;
+  Timer updateUI;
 
   _OTPsListPageState(this._listOfSecrets);
 
@@ -62,42 +60,21 @@ class _OTPsListPageState extends State<OTPsListPage> {
   @override
   void initState() {
     super.initState();
-    timeLeft = 30000 - DateTime.now().millisecondsSinceEpoch % 30000;
+
+    int delay = 30000 - DateTime.now().millisecondsSinceEpoch % 30000;
     Future.delayed(
-      Duration(milliseconds: timeLeft),
+      Duration(milliseconds: delay),
       () {
-        timeLeft = 30000;
-
-        timerOf30sec = Timer.periodic(
+        updateUI = Timer.periodic(
           Duration(seconds: 30),
-          (Timer t) {
-            timeLeft = 30000;
-            setState(() {});
-          },
+          (timer) => setState(() {}),
         );
-      },
-    );
-
-    var temp = timeLeft.toString();
-    if (temp.length == 5) {
-      timeLeft = int.parse(timeLeft.toString().substring(0, 2) + "000");
-    } else {
-      timeLeft = int.parse(timeLeft.toString().substring(0, 1) + "000");
-    }
-
-    timerOf1sec = Timer.periodic(
-      Duration(seconds: 1),
-      (Timer t) {
-        timeLeft -= 1000;
-        setState(() {});
       },
     );
   }
 
   @override
   void dispose() {
-    timerOf30sec?.cancel();
-    timerOf1sec?.cancel();
     super.dispose();
   }
 
@@ -106,23 +83,6 @@ class _OTPsListPageState extends State<OTPsListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("OTP Storage"),
-        actions: [
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(right: 8),
-                child: Text((timeLeft.toString().length == 5
-                        ? timeLeft.toString().substring(0, 2)
-                        : timeLeft.toString().substring(0, 1)) ??
-                    ""),
-              ),
-              Container(
-                margin: EdgeInsets.only(right: 8),
-                child: Icon(Icons.timer),
-              ),
-            ],
-          )
-        ],
       ),
       body: ListView.separated(
         itemCount: _listOfSecrets.length,
