@@ -1,7 +1,7 @@
 class Secret {
-  final id;
-  final secret;
-  final name;
+  final String id;
+  final String secret;
+  final String name;
 
   Secret(this.id, this.secret, this.name);
 

@@ -22,7 +22,7 @@ class DB {
       join(await getDatabasesPath(), dbName),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE $tableName(id INTEGER PRIMARY KEY, secret TEXT, name TEXT)',
+          'CREATE TABLE $tableName(id TEXT PRIMARY KEY, secret TEXT, name TEXT)',
         );
       },
       version: 1,
@@ -34,7 +34,7 @@ class DB {
     await db.insert(tableName, secret.toMap());
   }
 
-  Future<Secret> getSecretById(int id) async {
+  Future<Secret> getSecretById(String id) async {
     final db = await database;
     final Map<String, dynamic> map = (await db.query(tableName, where: 'id = ?', whereArgs: [id]))[0];
     return Secret(map['id'], map['secret'], map['name']);

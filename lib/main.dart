@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp_storage/Database.dart';
+import 'package:uuid/uuid.dart';
 
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
 }
 
 class OTPsListPage extends StatefulWidget {
-
   final List<Secret> _listOfSecrets;
 
   const OTPsListPage(this._listOfSecrets, {Key key}) : super(key: key);
@@ -71,7 +69,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
             context,
             MaterialPageRoute(builder: (context) => QRScanner()),
           );
-          int id;
+          String id;
           if (result is String) {
             final code = result;
             var list = code.split("&issuer=");
@@ -79,9 +77,8 @@ class _OTPsListPageState extends State<OTPsListPage> {
             var secret = list[0].substring(secretIndex + 8);
             var name = list[1];
 
-            id = Random.secure().nextInt(1000);
-            DB().insertSecret(
-                Secret(id, secret, name));
+            id = Uuid().v4();
+            DB().insertSecret(Secret(id, secret, name));
           }
 
           Secret secret = await DB().getSecretById(id);
