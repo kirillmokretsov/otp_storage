@@ -22,7 +22,7 @@ class DB {
       join(await getDatabasesPath(), dbName),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE $tableName(id TEXT PRIMARY KEY, secret TEXT, name TEXT)',
+          'CREATE TABLE $tableName(id TEXT PRIMARY KEY, type TEXT NOT NULL, label TEXT, secret TEXT NOT NULL, issuer TEXT, counter INTEGER, period INTEGER NOT NULL, digits INTEGER NOT NULL, algorithm TEXT NOT NULL, tags TEXT)',
         );
       },
       version: 1,
@@ -36,27 +36,20 @@ class DB {
 
   Future<Secret> getSecretById(String id) async {
     final db = await database;
-    final Map<String, dynamic> map = (await db.query(tableName, where: 'id = ?', whereArgs: [id]))[0];
-    // TODO: use new constructor
-    throw Exception("not implemented");
-    // return Secret(map['id'], map['secret'], map['name']);
+    final Map<String, dynamic> map =
+        (await db.query(tableName, where: 'id = ?', whereArgs: [id]))[0];
+    return Secret.fromMap(map);
   }
 
   Future<List<Secret>> getSecrets() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableName);
-    // TODO: use new constructor
-    throw Exception("not implemented");
-    // return List.generate(
-    //   maps.length,
-    //   (i) {
-    //     return Secret(
-    //       maps[i]['id'],
-    //       maps[i]['secret'],
-    //       maps[i]['name'],
-    //     );
-    //   },
-    // );
+    return List.generate(
+      maps.length,
+      (index) {
+        return Secret.fromMap(maps[index]);
+      },
+    );
   }
 
   Future<void> deleteSecret(Secret secret) async {
