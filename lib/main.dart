@@ -1,11 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:otp/otp.dart';
 import 'package:otp_storage/Database.dart';
 import 'package:uuid/uuid.dart';
 
+import 'OTPText.dart';
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
 
@@ -46,37 +44,14 @@ class OTPsListPage extends StatefulWidget {
 
 class _OTPsListPageState extends State<OTPsListPage> {
   final List<Secret> _listOfSecrets;
-  Timer updateUI;
 
   _OTPsListPageState(this._listOfSecrets);
 
   ListTile buildTile(BuildContext context, int index) => ListTile(
         leading: Text(_listOfSecrets[index].id.toString()),
-        title: Text(OTP.generateTOTPCodeString(_listOfSecrets[index].secret,
-            DateTime.now().millisecondsSinceEpoch)),
+        title: OTPText(_listOfSecrets[index].secret),
         subtitle: Text(_listOfSecrets[index].name),
       ); // TODO: create ListTile
-
-  @override
-  void initState() {
-    super.initState();
-
-    int delay = 30000 - DateTime.now().millisecondsSinceEpoch % 30000;
-    Future.delayed(
-      Duration(milliseconds: delay),
-      () {
-        updateUI = Timer.periodic(
-          Duration(seconds: 30),
-          (timer) => setState(() {}),
-        );
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
