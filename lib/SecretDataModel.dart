@@ -6,9 +6,9 @@ class Secret {
   final String label;
   final String secret;
   final String issuer;
-  final String counter;
-  final String period;
-  final String digits;
+  final int counter;
+  final int period;
+  final int digits;
   final OTPAlgorithm algorithm;
   final List<String> tags;
 
