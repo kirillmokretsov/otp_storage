@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:otp/otp.dart';
 import 'package:otp_storage/Database.dart';
 import 'package:uuid/uuid.dart';
 
@@ -48,7 +49,8 @@ class _OTPsListPageState extends State<OTPsListPage> {
 
   ListTile buildTile(BuildContext context, int index) => ListTile(
         leading: Text(_listOfSecrets[index].id.toString()),
-        title: Text(_listOfSecrets[index].secret),
+        title: Text(OTP.generateTOTPCodeString(_listOfSecrets[index].secret,
+            DateTime.now().millisecondsSinceEpoch)),
         subtitle: Text(_listOfSecrets[index].name),
       ); // TODO: create ListTile
 
