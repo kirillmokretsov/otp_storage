@@ -9,7 +9,7 @@ class Secret {
   final String counter;
   final String period;
   final String digits;
-  final String algorithm;
+  final OTPAlgorithm algorithm;
   final List<String> tags;
 
   Secret({
