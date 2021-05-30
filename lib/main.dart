@@ -80,7 +80,9 @@ class _OTPsListPageState extends State<OTPsListPage> {
             final code = result;
             Uri uri = Uri.parse(code);
 
-            await DB().insertSecret(Utils.parseUri(uri));
+            Secret newSecret = Utils.parseUri(uri);
+            id = newSecret.id;
+            await DB().insertSecret(newSecret);
           }
 
           Secret secret = await DB().getSecretById(id);
