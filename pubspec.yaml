@@ -33,6 +33,7 @@ dependencies:
   path: ^1.8.0
   uuid: ^3.0.4
   otp: ^3.0.0-nullsafety.0
+  about: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +60,10 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+
+  assets:
+    - README.md
+    - LICENSE.md
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

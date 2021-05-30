@@ -1,3 +1,4 @@
+import 'package:about/about.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp_storage/Database.dart';
@@ -65,6 +66,50 @@ class _OTPsListPageState extends State<OTPsListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("OTP Storage"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showAboutPage(
+                context: context,
+                values: {
+                  'version': '1.0',
+                  'year': DateTime.now().year.toString(),
+                },
+                title: Text(
+                  'OTP Storage',
+                ),
+                applicationName: 'OTP Storage',
+                applicationVersion: '1.0.0',
+                // TODO: add applicationIcon
+                applicationLegalese: 'Copyright © Kirill Mokretsov, {{ year }}',
+                applicationDescription: Text(
+                  'Storage for OTP password',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                children: <Widget>[
+                  MarkdownPageListTile(
+                    icon: Icon(Icons.menu_book_outlined),
+                    title: Text("View README"),
+                    filename: "README.md",
+                  ),
+                  // TODO: add changelog
+                  MarkdownPageListTile(
+                    icon: Icon(Icons.description),
+                    title: Text("View license"),
+                    filename: "LICENSE.md",
+                  ),
+                  // TODO: add contributing
+                  // TODO: add code of conduct
+                  LicensesPageListTile(
+                    icon: Icon(Icons.favorite),
+                    title: Text("Open source licenses"),
+                  ),
+                ],
+              );
+            },
+            icon: Icon(Icons.info_outline),
+          ),
+        ],
       ),
       body: Container(
         margin: EdgeInsets.all(16),
