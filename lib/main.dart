@@ -48,7 +48,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
   _OTPsListPageState(this._listOfSecrets);
 
   ListTile buildTile(BuildContext context, int index) => ListTile(
-        title: OTPText(_listOfSecrets[index].secret),
+        title: OTPText(_listOfSecrets[index]),
         subtitle: Text(
           _listOfSecrets[index].label,
           style: Theme.of(context).textTheme.bodyText2,
@@ -102,10 +102,4 @@ enum OTPType {
   HOTP,
   MOTP,
   STEAM,
-}
-
-enum OTPAlgorithm {
-  SHA1,
-  SHA256,
-  SHA512,
 }

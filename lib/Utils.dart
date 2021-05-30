@@ -1,3 +1,4 @@
+import 'package:otp/otp.dart';
 import 'package:uuid/uuid.dart';
 
 import 'SecretDataModel.dart';
@@ -16,23 +17,23 @@ class Utils {
     }
   }
 
-  static OTPAlgorithm parseOTPAlgorithm(String algorithm) {
+  static Algorithm parseOTPAlgorithm(String algorithm) {
     algorithm = algorithm.toLowerCase();
     switch (algorithm) {
       case 'otpalgorithm.sha1':
       case 'sha1':
-        return OTPAlgorithm.SHA1;
+        return Algorithm.SHA1;
         break;
       case 'otpalgorithm.sha256':
       case 'sha256':
-        return OTPAlgorithm.SHA256;
+        return Algorithm.SHA256;
         break;
       case 'otpalgorithm.sha512':
       case 'sha512':
-        return OTPAlgorithm.SHA512;
+        return Algorithm.SHA512;
         break;
       default:
-        return OTPAlgorithm.SHA1;
+        return Algorithm.SHA1;
         break;
     }
   }
@@ -82,7 +83,7 @@ class Utils {
     if (algorithm != null) {
       algorithm = Utils.parseOTPAlgorithm((algorithm as List<String>).first);
     } else {
-      algorithm = OTPAlgorithm.SHA1;
+      algorithm = Algorithm.SHA1;
     }
 
     if (tags == null) {
@@ -99,7 +100,7 @@ class Utils {
       counter: (counter as int),
       period: (period as int),
       digits: (digits as int),
-      algorithm: (algorithm as OTPAlgorithm),
+      algorithm: (algorithm as Algorithm),
       tags: tags,
     );
   }

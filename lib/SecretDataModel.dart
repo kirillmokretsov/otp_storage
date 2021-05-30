@@ -1,3 +1,4 @@
+import 'package:otp/otp.dart';
 import 'package:otp_storage/main.dart';
 
 import 'Utils.dart';
@@ -11,7 +12,7 @@ class Secret {
   final int counter;
   final int period;
   final int digits;
-  final OTPAlgorithm algorithm;
+  final Algorithm algorithm;
   final List<String> tags;
 
   Secret({
