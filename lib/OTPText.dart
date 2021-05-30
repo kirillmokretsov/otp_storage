@@ -22,7 +22,7 @@ class _OTPTextState extends State<OTPText> {
   Widget build(BuildContext context) {
     return Text(
       OTP.generateTOTPCodeString(
-          _secret, DateTime.now().millisecondsSinceEpoch),
+          _secret, DateTime.now().millisecondsSinceEpoch, algorithm: Algorithm.SHA1),
     );
   }
 
