@@ -36,13 +36,11 @@ class _OTPsListPageState extends State<OTPsListPage> {
           ),
         ],
       ),
-      body: Container(
-        margin: EdgeInsets.all(16),
-        child: ListView.separated(
-          itemCount: _listOfSecrets.length,
-          itemBuilder: buildTile,
-          separatorBuilder: (BuildContext context, int index) => Divider(),
-        ),
+      body: ListView.separated(
+        itemCount: _listOfSecrets.length,
+        itemBuilder: buildTile,
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+        padding: EdgeInsets.all(16.0),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _scan,
