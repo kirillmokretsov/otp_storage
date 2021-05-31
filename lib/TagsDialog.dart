@@ -29,8 +29,9 @@ class _TagsDialogState extends State<TagsDialog> {
       ),
       actions: [
         TextButton(
-          // TODO: implement onPressed
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context, tags);
+          },
           child: Text("Save"),
         ),
       ],
