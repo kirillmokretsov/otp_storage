@@ -6,7 +6,7 @@ class TagsDialog extends StatefulWidget {
   const TagsDialog(this.tags, {Key key}) : super(key: key);
 
   @override
-  _TagsDialogState createState() => _TagsDialogState();
+  _TagsDialogState createState() => _TagsDialogState(tags);
 }
 
 class _TagsDialogState extends State<TagsDialog> {
