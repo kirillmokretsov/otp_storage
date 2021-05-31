@@ -44,13 +44,17 @@ class _TagsDialogState extends State<TagsDialog> {
   Widget _buildTiles(BuildContext context, int index) {
     if (tags.length == index) {
       return TextButton(
-        onPressed: () {
-          showDialog(
+        onPressed: () async {
+          final result = await showDialog(
             context: context,
             builder: (BuildContext context) {
               return TextEditorDialog('');
             },
           );
+          if (result != null && result is String) {
+            tags.add(result);
+            setState(() {});
+          }
         },
         child: Text(
           "+ Add new tag",
