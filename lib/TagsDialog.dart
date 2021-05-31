@@ -41,8 +41,14 @@ class _TagsDialogState extends State<TagsDialog> {
   Widget _buildTiles(BuildContext context, int index) {
     if (tags.length == index) {
       return TextButton(
-        // TODO: implement onPressed
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return TextEditorDialog('');
+            },
+          );
+        },
         child: Text(
           "+ Add new tag",
         ),
@@ -58,14 +64,18 @@ class _TagsDialogState extends State<TagsDialog> {
 }
 
 class TextEditorDialog extends StatefulWidget {
-  const TextEditorDialog({Key key}) : super(key: key);
+  final String preEdited;
+
+  const TextEditorDialog(this.preEdited, {Key key}) : super(key: key);
 
   @override
-  _TextEditorDialogState createState() => _TextEditorDialogState();
+  _TextEditorDialogState createState() => _TextEditorDialogState(preEdited);
 }
 
 class _TextEditorDialogState extends State<TextEditorDialog> {
   String tagName;
+
+  _TextEditorDialogState(this.tagName);
 
   @override
   Widget build(BuildContext context) {
