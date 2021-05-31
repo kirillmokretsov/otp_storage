@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// TODO: allow delete tags
+// TODO: allow edit tags
+
 class TagsDialog extends StatefulWidget {
   final List<String> tags;
 
@@ -74,6 +77,30 @@ class TextEditorDialog extends StatefulWidget {
 
 class _TextEditorDialogState extends State<TextEditorDialog> {
   String tagName;
+  bool insertedOld = false;
+
+  final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (insertedOld == false) {
+        _controller.value = TextEditingValue(
+          text: tagName,
+        );
+        insertedOld = true;
+      } else {
+        tagName = _controller.text;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   _TextEditorDialogState(this.tagName);
 
@@ -83,6 +110,7 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
       child: AlertDialog(
         title: const Text("Enter new tag"),
         content: TextField(
+          controller: _controller,
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(),
@@ -90,7 +118,6 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
             hintText: 'Tag',
           ),
           onChanged: (string) {
-            tagName = string;
             setState(() {});
           },
           onSubmitted: save,
