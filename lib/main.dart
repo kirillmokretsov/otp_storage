@@ -64,51 +64,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
         title: Text("OTP Storage"),
         actions: [
           IconButton(
-            onPressed: () {
-              showAboutPage(
-                context: context,
-                values: {
-                  'year': DateTime.now().year.toString(),
-                },
-                title: Text(
-                  'OTP Storage',
-                ),
-                applicationName: 'OTP Storage',
-                applicationVersion: '1.0.0',
-                applicationIcon: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Image.asset(
-                    'assets/icon/app.png',
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-                applicationLegalese: 'Copyright © Kirill Mokretsov, {{ year }}',
-                applicationDescription: Text(
-                  'Storage for one-time passwords',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-                children: <Widget>[
-                  MarkdownPageListTile(
-                    icon: Icon(Icons.menu_book_outlined),
-                    title: Text("View README"),
-                    filename: "README.md",
-                  ),
-                  // TODO: add changelog
-                  MarkdownPageListTile(
-                    icon: Icon(Icons.description),
-                    title: Text("View license"),
-                    filename: "LICENSE.md",
-                  ),
-                  // TODO: add contributing
-                  // TODO: add code of conduct
-                  LicensesPageListTile(
-                    icon: Icon(Icons.favorite),
-                    title: Text("Open source licenses"),
-                  ),
-                ],
-              );
-            },
+            onPressed: showAbout,
             icon: Icon(Icons.info_outline),
           ),
         ],
@@ -145,6 +101,52 @@ class _OTPsListPageState extends State<OTPsListPage> {
         },
         child: Icon(Icons.qr_code_scanner),
       ),
+    );
+  }
+
+  void showAbout() {
+    showAboutPage(
+      context: context,
+      values: {
+        'year': DateTime.now().year.toString(),
+      },
+      title: Text(
+        'OTP Storage',
+      ),
+      applicationName: 'OTP Storage',
+      applicationVersion: '1.0.0',
+      applicationIcon: SizedBox(
+        width: 100,
+        height: 100,
+        child: Image.asset(
+          'assets/icon/app.png',
+          fit: BoxFit.scaleDown,
+        ),
+      ),
+      applicationLegalese: 'Copyright © Kirill Mokretsov, {{ year }}',
+      applicationDescription: Text(
+        'Storage for one-time passwords',
+        style: Theme.of(context).textTheme.bodyText2,
+      ),
+      children: <Widget>[
+        MarkdownPageListTile(
+          icon: Icon(Icons.menu_book_outlined),
+          title: Text("View README"),
+          filename: "README.md",
+        ),
+        // TODO: add changelog
+        MarkdownPageListTile(
+          icon: Icon(Icons.description),
+          title: Text("View license"),
+          filename: "LICENSE.md",
+        ),
+        // TODO: add contributing
+        // TODO: add code of conduct
+        LicensesPageListTile(
+          icon: Icon(Icons.favorite),
+          title: Text("Open source licenses"),
+        ),
+      ],
     );
   }
 }
