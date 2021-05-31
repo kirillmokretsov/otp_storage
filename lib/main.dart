@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:otp_storage/Database.dart';
+import 'package:otp_storage/database/Database.dart';
 
-import 'OTPsListPage.dart';
-import 'SecretDataModel.dart';
+import 'page/OTPsListPage.dart';
+import 'datamodel/SecretDataModel.dart';
 
 // TODO: allow user to edit secret
 // TODO: allow user to manually set icons

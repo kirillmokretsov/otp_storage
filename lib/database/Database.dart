@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'SecretDataModel.dart';
+import '../datamodel/SecretDataModel.dart';
 
 class DB {
   final dbName = "data.db";

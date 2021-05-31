@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 
-import 'OTPType.dart';
-import 'OTPsListPage.dart';
-import 'SecretDataModel.dart';
+import '../enum/OTPType.dart';
+import '../page/OTPsListPage.dart';
+import '../datamodel/SecretDataModel.dart';
 
 class OTPText extends StatefulWidget {
   final Secret _secret;

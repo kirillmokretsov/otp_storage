@@ -3,8 +3,8 @@ import 'package:otp/otp.dart';
 import 'package:recase/recase.dart';
 import 'package:uuid/uuid.dart';
 
-import 'OTPType.dart';
-import 'SecretDataModel.dart';
+import '../enum/OTPType.dart';
+import '../datamodel/SecretDataModel.dart';
 import 'SimpleIconsGetter.dart';
 
 class Utils {

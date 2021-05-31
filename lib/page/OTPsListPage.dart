@@ -1,11 +1,11 @@
 import 'package:about/about.dart';
 import 'package:flutter/material.dart';
 
-import 'Database.dart';
-import 'OTPListTile.dart';
+import '../database/Database.dart';
+import '../widget/OTPListTile.dart';
 import 'QRScanner.dart';
-import 'SecretDataModel.dart';
-import 'Utils.dart';
+import '../datamodel/SecretDataModel.dart';
+import '../utils/Utils.dart';
 
 class OTPsListPage extends StatefulWidget {
   final List<Secret> _listOfSecrets;

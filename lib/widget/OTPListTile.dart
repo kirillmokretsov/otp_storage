@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:otp_storage/SecretDataModel.dart';
+import 'package:otp_storage/datamodel/SecretDataModel.dart';
 
-import 'Database.dart';
+import '../database/Database.dart';
 import 'OTPText.dart';
-import 'TagsDialog.dart';
-import 'Utils.dart';
+import '../dialog/TagsDialog.dart';
+import '../utils/Utils.dart';
 
 class OTPListTile extends ListTile {
   final Secret _secret;

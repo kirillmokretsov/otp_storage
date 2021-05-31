@@ -1,8 +1,8 @@
 import 'package:otp/otp.dart';
 
-import 'OTPType.dart';
-import 'OTPsListPage.dart';
-import 'Utils.dart';
+import '../enum/OTPType.dart';
+import '../page/OTPsListPage.dart';
+import '../utils/Utils.dart';
 
 class Secret {
   final String id;
