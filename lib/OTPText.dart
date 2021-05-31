@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 
+import 'OTPType.dart';
 import 'OTPsListPage.dart';
 import 'SecretDataModel.dart';
 

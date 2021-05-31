@@ -1,5 +1,6 @@
 import 'package:otp/otp.dart';
 
+import 'OTPType.dart';
 import 'OTPsListPage.dart';
 import 'Utils.dart';
 

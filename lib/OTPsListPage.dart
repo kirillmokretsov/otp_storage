@@ -117,10 +117,3 @@ class _OTPsListPageState extends State<OTPsListPage> {
     );
   }
 }
-
-enum OTPType {
-  TOTP,
-  HOTP,
-  MOTP,
-  STEAM,
-}
