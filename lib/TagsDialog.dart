@@ -31,11 +31,6 @@ class _TagsDialogState extends State<TagsDialog> {
         TextButton(
           // TODO: implement onPressed
           onPressed: () {},
-          child: Text("Cancel"),
-        ),
-        TextButton(
-          // TODO: implement onPressed
-          onPressed: () {},
           child: Text("Save"),
         ),
       ],
