@@ -10,7 +10,7 @@ import 'Utils.dart';
 
 // TODO: add usage for tags
 // TODO: allow user to manually set icons
-// TODO: add time indicator
+// TODO: add time indicator (maybe https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 // TODO: add encryption
 
 void main() async {
@@ -61,6 +61,38 @@ class _OTPsListPageState extends State<OTPsListPage> {
         subtitle: Text(
           _listOfSecrets[index].label,
           style: Theme.of(context).textTheme.bodyText2,
+        ),
+        trailing: PopupMenuButton(
+          itemBuilder: (BuildContext context) {
+            List<PopupMenuItem<dynamic>> entries = [];
+
+            entries.add(
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.edit),
+                  title: Text('Edit'),
+                ),
+              ),
+            );
+            entries.add(
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.image),
+                  title: Text('Set icon'),
+                ),
+              ),
+            );
+            entries.add(
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.tag),
+                  title: Text('View tags'),
+                ),
+              ),
+            );
+
+            return entries;
+          },
         ),
       ); // TODO: create ListTile
 
