@@ -16,42 +16,35 @@ class _TagsDialogState extends State<TagsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: Text("View tags"),
-      children: [
-        ListView.separated(
-          itemCount: tags.length + 1,
+    return AlertDialog(
+      title: const Text("Tags"),
+      content: Container(
+        // TODO: add support of landscape screens
+        width: MediaQuery.of(context).size.width / 1.2,
+        child: ListView.separated(
           itemBuilder: _buildTiles,
           separatorBuilder: (BuildContext context, int index) => Divider(),
+          itemCount: tags.length,
         ),
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Cancel"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Save"),
-            ),
-          ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {},
+          child: Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Text("Save"),
         ),
       ],
     );
   }
 
   Widget _buildTiles(BuildContext context, int index) {
-    if (index == tags.length) {
-      return ElevatedButton(
-        onPressed: () {},
-        child: Text("Add new tag"),
-      );
-    } else {
-      return ListTile(
-        title: Text(
-          tags[index],
-        ),
-      );
-    }
+    return ListTile(
+      title: Text(
+        tags[index],
+      ),
+    );
   }
 }

@@ -6,6 +6,7 @@ import 'package:otp_storage/Database.dart';
 import 'OTPText.dart';
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
+import 'TagsDialog.dart';
 import 'Utils.dart';
 
 // TODO: add usage for tags
@@ -99,7 +100,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
 
             return entries;
           },
-          onSelected: (value) {
+          onSelected: (value) async {
             switch (value as String) {
               case 'edit':
                 // TODO: show edit dialog
@@ -108,7 +109,12 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 // TODO: show set icon dialog
                 break;
               case 'tags':
-                // TODO: show view tags dialog
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) =>
+                      TagsDialog(_listOfSecrets[index].tags),
+                );
+
                 break;
               default:
                 throw Exception("Unknown entry item $value");
