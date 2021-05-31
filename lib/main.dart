@@ -64,8 +64,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
         ),
         trailing: PopupMenuButton(
           itemBuilder: (BuildContext context) {
-            // TODO: add dividers
-            List<PopupMenuItem<dynamic>> entries = [];
+            List<PopupMenuEntry<dynamic>> entries = [];
 
             entries.add(
               PopupMenuItem(
@@ -76,6 +75,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 ),
               ),
             );
+            entries.add(PopupMenuDivider());
             entries.add(
               PopupMenuItem(
                 value: 'icon',
@@ -85,6 +85,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 ),
               ),
             );
+            entries.add(PopupMenuDivider());
             entries.add(
               PopupMenuItem(
                 value: 'tags',
