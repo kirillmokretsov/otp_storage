@@ -31,8 +31,17 @@ class DB {
 
   Future<void> insertSecret(Secret secret) async {
     final db = await database;
-    // ConflictAlgorithm allows to update secrets
-    await db.insert(tableName, secret.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.insert(tableName, secret.toMap());
+  }
+
+  Future<void> updateSecret(Secret secret) async {
+    final db = await database;
+    await db.update(
+      tableName,
+      secret.toMap(),
+      where: 'id = ?',
+      whereArgs: [secret.id],
+    );
   }
 
   Future<Secret> getSecretById(String id) async {

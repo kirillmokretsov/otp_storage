@@ -115,7 +115,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 );
                 if (result != null && result is List<String>) {
                   _listOfSecrets[index].tags = result;
-                  DB().insertSecret(_listOfSecrets[index]);
+                  DB().updateSecret(_listOfSecrets[index]);
                 }
                 break;
               default:
