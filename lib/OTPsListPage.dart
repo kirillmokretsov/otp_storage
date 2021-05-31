@@ -31,7 +31,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
         title: Text("OTP Storage"),
         actions: [
           IconButton(
-            onPressed: showAbout,
+            onPressed: _showAbout,
             icon: Icon(Icons.info_outline),
           ),
         ],
@@ -45,33 +45,35 @@ class _OTPsListPageState extends State<OTPsListPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => QRScanner()),
-          );
-          String id;
-          if (result is String) {
-            final code = result;
-            Uri uri = Uri.parse(code);
-
-            Secret newSecret = Utils.parseUri(uri);
-            id = newSecret.id;
-            await DB().insertSecret(newSecret);
-          }
-
-          Secret secret = await DB().getSecretById(id);
-
-          setState(() {
-            _listOfSecrets.add(secret);
-          });
-        },
+        onPressed: _scan,
         child: Icon(Icons.qr_code_scanner),
       ),
     );
   }
 
-  void showAbout() {
+  void _scan() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => QRScanner()),
+    );
+    String id;
+    if (result is String) {
+      final code = result;
+      Uri uri = Uri.parse(code);
+
+      Secret newSecret = Utils.parseUri(uri);
+      id = newSecret.id;
+      await DB().insertSecret(newSecret);
+    }
+
+    Secret secret = await DB().getSecretById(id);
+
+    setState(() {
+      _listOfSecrets.add(secret);
+    });
+  }
+
+  void _showAbout() {
     showAboutPage(
       context: context,
       values: {
