@@ -24,7 +24,7 @@ class _OTPTextState extends State<OTPText> {
   String getCode() {
     if (_secret.type == OTPType.TOTP) {
       return OTP.generateTOTPCodeString(
-        _secret.id,
+        _secret.secret,
         DateTime.now().millisecondsSinceEpoch,
         length: _secret.digits,
         interval: _secret.period,
