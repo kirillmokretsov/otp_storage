@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:otp/otp.dart';
+import 'package:recase/recase.dart';
 import 'package:uuid/uuid.dart';
 
+import 'OTPsListPage.dart';
 import 'SecretDataModel.dart';
-import 'main.dart';
-import 'package:recase/recase.dart';
 import 'SimpleIconsGetter.dart';
 
 class Utils {
@@ -146,5 +146,4 @@ class Utils {
 
     return SimpleIconsGetter.find(name);
   }
-
 }

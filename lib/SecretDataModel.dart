@@ -1,6 +1,6 @@
 import 'package:otp/otp.dart';
-import 'package:otp_storage/main.dart';
 
+import 'OTPsListPage.dart';
 import 'Utils.dart';
 
 class Secret {

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
-import 'package:otp_storage/main.dart';
 
+import 'OTPsListPage.dart';
 import 'SecretDataModel.dart';
 
 class OTPText extends StatefulWidget {
