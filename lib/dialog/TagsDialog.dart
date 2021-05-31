@@ -124,12 +124,12 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
           onChanged: (string) {
             setState(() {});
           },
-          onSubmitted: save,
+          onSubmitted: _save,
         ),
         actions: [
           TextButton(
             onPressed: () {
-              save(tagName);
+              _save(tagName);
             },
             child: Text("Save"),
           ),
@@ -138,7 +138,7 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
     );
   }
 
-  void save(String result) {
+  void _save(String result) {
     Navigator.pop(context, result);
   }
 }
