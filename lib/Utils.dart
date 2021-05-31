@@ -42,12 +42,16 @@ class Utils {
   }
 
   static List<String> parseTags(String tags) {
-    List<String> result = [];
+    if (tags == '[]')
+      return [];
+    else {
+      List<String> result = [];
 
-    tags = tags.replaceAll("[", '').replaceAll("]", '');
-    result = tags.split(',');
+      tags = tags.replaceAll("[", '').replaceAll("]", '');
+      result = tags.split(',');
 
-    return result;
+      return result;
+    }
   }
 
   static Secret parseUri(Uri uri) {
