@@ -114,7 +114,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
             }
           },
         ),
-      ); // TODO: create ListTile
+      );
 
   @override
   Widget build(BuildContext context) {
