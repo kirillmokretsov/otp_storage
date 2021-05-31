@@ -144,7 +144,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 ),
                 applicationName: 'OTP Storage',
                 applicationVersion: '1.0.0',
-                // TODO: add applicationIcon
+                applicationIcon: Image.asset('assets/icon/app.png'),
                 applicationLegalese: 'Copyright © Kirill Mokretsov, {{ year }}',
                 applicationDescription: Text(
                   'Storage for one-time passwords',
