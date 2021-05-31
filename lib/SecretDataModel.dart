@@ -13,7 +13,7 @@ class Secret {
   final int period;
   final int digits;
   final Algorithm algorithm;
-  final List<String> tags;
+  List<String> tags;
 
   Secret({
     this.id,

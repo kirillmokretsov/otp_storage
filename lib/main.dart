@@ -9,8 +9,7 @@ import 'SecretDataModel.dart';
 import 'TagsDialog.dart';
 import 'Utils.dart';
 
-// TODO: add usage for tags
-// TODO: allow user to edit secret
+// TODO: add usage for t allow user to edit secret
 // TODO: allow user to manually set icons
 // TODO: add time indicator (maybe https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 // TODO: add encryption
@@ -109,12 +108,15 @@ class _OTPsListPageState extends State<OTPsListPage> {
                 // TODO: show set icon dialog
                 break;
               case 'tags':
-                await showDialog(
+                final result = await showDialog(
                   context: context,
                   builder: (BuildContext context) =>
                       TagsDialog(_listOfSecrets[index].tags),
                 );
-
+                if (result != null && result is List<String>) {
+                  _listOfSecrets[index].tags = result;
+                  DB().insertSecret(_listOfSecrets[index]);
+                }
                 break;
               default:
                 throw Exception("Unknown entry item $value");
