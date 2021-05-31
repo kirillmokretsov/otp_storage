@@ -24,15 +24,17 @@ class _TagsDialogState extends State<TagsDialog> {
         child: ListView.separated(
           itemBuilder: _buildTiles,
           separatorBuilder: (BuildContext context, int index) => Divider(),
-          itemCount: tags.length,
+          itemCount: tags.length + 1,
         ),
       ),
       actions: [
         TextButton(
+          // TODO: implement onPressed
           onPressed: () {},
           child: Text("Cancel"),
         ),
         TextButton(
+          // TODO: implement onPressed
           onPressed: () {},
           child: Text("Save"),
         ),
@@ -41,10 +43,20 @@ class _TagsDialogState extends State<TagsDialog> {
   }
 
   Widget _buildTiles(BuildContext context, int index) {
-    return ListTile(
-      title: Text(
-        tags[index],
-      ),
-    );
+    if (tags.length == index) {
+      return TextButton(
+        // TODO: implement onPressed
+        onPressed: () {},
+        child: Text(
+          "+ Add new tag",
+        ),
+      );
+    } else {
+      return ListTile(
+        title: Text(
+          tags[index],
+        ),
+      );
+    }
   }
 }
