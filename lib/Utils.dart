@@ -4,7 +4,6 @@ import 'package:recase/recase.dart';
 import 'package:uuid/uuid.dart';
 
 import 'OTPType.dart';
-import 'OTPsListPage.dart';
 import 'SecretDataModel.dart';
 import 'SimpleIconsGetter.dart';
 
