@@ -8,7 +8,8 @@ import 'QRScanner.dart';
 import 'SecretDataModel.dart';
 import 'Utils.dart';
 
-// TODO: add usage for tags and issuers
+// TODO: add usage for tags
+// TODO: allow user to manually set icons
 // TODO: add time indicator
 // TODO: add encryption
 
@@ -53,6 +54,9 @@ class _OTPsListPageState extends State<OTPsListPage> {
   _OTPsListPageState(this._listOfSecrets);
 
   ListTile buildTile(BuildContext context, int index) => ListTile(
+        leading: Icon(
+          Utils.findIconByName(_listOfSecrets[index].issuer),
+        ),
         title: OTPText(_listOfSecrets[index]),
         subtitle: Text(
           _listOfSecrets[index].label,

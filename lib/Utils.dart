@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:otp/otp.dart';
 import 'package:uuid/uuid.dart';
 
 import 'SecretDataModel.dart';
 import 'main.dart';
+import 'package:recase/recase.dart';
+import 'SimpleIconsGetter.dart';
 
 class Utils {
   static OTPType parseOTPType(String type) {
@@ -104,4 +107,31 @@ class Utils {
       tags: tags,
     );
   }
+
+  static IconData findIconByName(String name) {
+    bool camelCase = false;
+
+    name = name.replaceAll(' ', '');
+
+    if (name.contains('.')) {
+      name = name.replaceAll('.', 'dot');
+      camelCase = true;
+    }
+    if (name.contains('-')) {
+      name = name.replaceAll('-', '');
+      camelCase = true;
+    }
+    var index = name.indexOf(RegExp(r'\d'));
+    if (index != -1)
+      name = name.substring(0, index) + 'n' + name.substring(index);
+
+    if (camelCase) {
+      name = ReCase(name).camelCase;
+    } else {
+      name = name.toLowerCase();
+    }
+
+    return SimpleIconsGetter.find(name);
+  }
+
 }
