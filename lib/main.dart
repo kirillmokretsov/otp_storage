@@ -9,7 +9,7 @@ import 'SecretDataModel.dart';
 import 'TagsDialog.dart';
 import 'Utils.dart';
 
-// TODO: add usage for t allow user to edit secret
+// TODO: allow user to edit secret
 // TODO: allow user to manually set icons
 // TODO: add time indicator (maybe https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 // TODO: add encryption
