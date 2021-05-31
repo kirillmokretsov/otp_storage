@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp_storage/Database.dart';
 
-import 'OTPText.dart';
+import 'OTPListTile.dart';
 import 'QRScanner.dart';
 import 'SecretDataModel.dart';
-import 'TagsDialog.dart';
 import 'Utils.dart';
 
 // TODO: allow user to edit secret
@@ -55,76 +54,8 @@ class _OTPsListPageState extends State<OTPsListPage> {
 
   _OTPsListPageState(this._listOfSecrets);
 
-  ListTile buildTile(BuildContext context, int index) => ListTile(
-        leading: Icon(
-          Utils.findIconByName(_listOfSecrets[index].issuer),
-        ),
-        title: OTPText(_listOfSecrets[index]),
-        subtitle: Text(
-          _listOfSecrets[index].label,
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-        trailing: PopupMenuButton(
-          itemBuilder: (BuildContext context) {
-            List<PopupMenuEntry<dynamic>> entries = [];
-
-            entries.add(
-              PopupMenuItem(
-                value: 'edit',
-                child: ListTile(
-                  leading: Icon(Icons.edit),
-                  title: Text('Edit'),
-                ),
-              ),
-            );
-            entries.add(PopupMenuDivider());
-            entries.add(
-              PopupMenuItem(
-                value: 'icon',
-                child: ListTile(
-                  leading: Icon(Icons.image),
-                  title: Text('Set icon'),
-                ),
-              ),
-            );
-            entries.add(PopupMenuDivider());
-            entries.add(
-              PopupMenuItem(
-                value: 'tags',
-                child: ListTile(
-                  leading: Icon(Icons.tag),
-                  title: Text('View tags'),
-                ),
-              ),
-            );
-
-            return entries;
-          },
-          onSelected: (value) async {
-            switch (value as String) {
-              case 'edit':
-                // TODO: show edit dialog
-                break;
-              case 'icon':
-                // TODO: show set icon dialog
-                break;
-              case 'tags':
-                final result = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) =>
-                      TagsDialog(_listOfSecrets[index].tags),
-                );
-                if (result != null && result is List<String>) {
-                  _listOfSecrets[index].tags = result;
-                  DB().updateSecret(_listOfSecrets[index]);
-                }
-                break;
-              default:
-                throw Exception("Unknown entry item $value");
-            }
-          },
-        ),
-      );
+  ListTile buildTile(BuildContext context, int index) =>
+      OTPListTile(_listOfSecrets[index]);
 
   @override
   Widget build(BuildContext context) {

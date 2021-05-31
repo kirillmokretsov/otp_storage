@@ -42,12 +42,10 @@ class _OTPTextState extends State<OTPText> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Text(
-      getCode(),
-      style: Theme.of(context).textTheme.headline6,
-    );
-  }
+  Widget build(BuildContext context) => Text(
+        getCode(),
+        style: Theme.of(context).textTheme.headline6,
+      );
 
   @override
   void initState() {
