@@ -51,8 +51,7 @@ class Secret {
         period: map['period'],
         digits: map['digits'],
         algorithm: Utils.parseOTPAlgorithm(map['algorithm']),
-        // TODO: fill tags normally
-        tags: [map['tags']],
+        tags: Utils.parseTags(map['tags']),
       );
 
   String toString() =>

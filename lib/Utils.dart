@@ -41,6 +41,15 @@ class Utils {
     }
   }
 
+  static List<String> parseTags(String tags) {
+    List<String> result = [];
+
+    tags = tags.replaceAll("[", '').replaceAll("]", '');
+    result = tags.split(',');
+
+    return result;
+  }
+
   static Secret parseUri(Uri uri) {
     if (uri.scheme.toLowerCase() != "otpauth")
       throw Exception("Invalid protocol");
