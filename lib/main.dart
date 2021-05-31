@@ -64,10 +64,12 @@ class _OTPsListPageState extends State<OTPsListPage> {
         ),
         trailing: PopupMenuButton(
           itemBuilder: (BuildContext context) {
+            // TODO: add dividers
             List<PopupMenuItem<dynamic>> entries = [];
 
             entries.add(
               PopupMenuItem(
+                value: 'edit',
                 child: ListTile(
                   leading: Icon(Icons.edit),
                   title: Text('Edit'),
@@ -76,6 +78,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
             );
             entries.add(
               PopupMenuItem(
+                value: 'icon',
                 child: ListTile(
                   leading: Icon(Icons.image),
                   title: Text('Set icon'),
@@ -84,6 +87,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
             );
             entries.add(
               PopupMenuItem(
+                value: 'tags',
                 child: ListTile(
                   leading: Icon(Icons.tag),
                   title: Text('View tags'),
@@ -92,6 +96,21 @@ class _OTPsListPageState extends State<OTPsListPage> {
             );
 
             return entries;
+          },
+          onSelected: (value) {
+            switch (value as String) {
+              case 'edit':
+                // TODO: show edit dialog
+                break;
+              case 'icon':
+                // TODO: show set icon dialog
+                break;
+              case 'tags':
+                // TODO: show view tags dialog
+                break;
+              default:
+                throw Exception("Unknown entry item $value");
+            }
           },
         ),
       ); // TODO: create ListTile
