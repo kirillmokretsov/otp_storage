@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       title: 'OTP Storage',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.amberAccent,
       ),
       home: OTPsListPage(_listOfSecrets),
     );

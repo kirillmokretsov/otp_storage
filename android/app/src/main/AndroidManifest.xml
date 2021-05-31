@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.kirillmokretsov.otp_storage">
    <application
-        android:label="otp_storage"
+        android:label="OTP Storage"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
