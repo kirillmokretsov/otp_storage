@@ -79,7 +79,17 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
-                // TODO: add validator
+                validator: (string) {
+                  if (string == null || string.isEmpty) {
+                    return "Secret must not be empty";
+                  } else if (string.length % 2 != 0 ||
+                      !RegExp(r'^[A-Z2-7=]+$').hasMatch(string)) {
+                    // Check that it is base32
+                    return "Provide valid base32 string";
+                  } else {
+                    return null;
+                  }
+                },
               ),
               Divider(),
               // Type
