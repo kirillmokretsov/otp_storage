@@ -4,13 +4,12 @@ import 'package:simple_icons/simple_icons.dart';
 class SimpleIconsGetter {
 
   static IconData find(String name) {
-    try {
+    if (_map.containsKey(name)) {
       return _map[name];
-    } catch (exception) {
-      print(exception.toString() + '\nname: $name');
+    } else {
+      // TODO: add more suitable icon
+      return Icons.cancel;
     }
-    // TODO: add more suitable icon
-    return Icons.cancel;
   }
 
   static Map<String, IconData> getMap() => _map;
