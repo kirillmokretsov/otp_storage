@@ -63,6 +63,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
         _secret.type == OTPType.HOTP ? 'Counter' : 'Period';
     var counterOrPeriodHint =
         _secret.type == OTPType.HOTP ? 'Enter counter' : 'Enter period';
+    final node = FocusScope.of(context);
     return AlertDialog(
       title: Text("Enter new values"),
       content: Container(
@@ -82,7 +83,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: 'Enter secret',
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: continue to next field,
+                onEditingComplete: () => node.nextFocus(),
                 validator: (string) {
                   if (string == null || string.isEmpty) {
                     return "Secret must not be empty";
@@ -108,7 +109,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: 'Enter type',
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: continue to next field,
+                onEditingComplete: () => node.nextFocus(),
                 validator: (string) {
                   if (string == null || string.isEmpty) {
                     return 'Type must not be empty';
@@ -132,7 +133,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: 'Enter label',
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: continue to next field,
+                onEditingComplete: () => node.nextFocus(),
               ),
               Divider(),
               // Issuer
@@ -146,7 +147,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: 'Enter issuer',
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: continue to next field,
+                onEditingComplete: () => node.nextFocus(),
               ),
               Divider(),
               // Counter or period (depends on type)
@@ -160,7 +161,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: counterOrPeriodHint,
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: continue to next field,
+                onEditingComplete: () => node.nextFocus(),
                 validator: (string) {
                   if (string == null || string.isEmpty) {
                     return "Period or counter must not be empty";
@@ -185,7 +186,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: 'Enter digits',
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: continue to next field,
+                onEditingComplete: () => node.nextFocus(),
                 validator: (string) {
                   if (string == null || string.isEmpty) {
                     return "Digits must not be empty";
@@ -210,7 +211,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                   hintText: 'Enter algorithm',
                 ),
                 onChanged: (string) => setState(() {}),
-                // onSubmitted: // TODO: close keyboard,
+                onEditingComplete: () => node.unfocus(),
                 validator: (string) {
                   if (string == null || string.isEmpty) {
                     return 'Algorithm must not be empty';
