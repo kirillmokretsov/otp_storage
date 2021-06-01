@@ -105,7 +105,13 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
-                // TODO: add validator
+                validator: (string) {
+                  if (string != 'OTPType.TOTP' || string != 'OTPType.HOTP') {
+                    return 'Invalid OTP type: should be \'OTPType.TOTP\' or \'OTPType.HOTP\'';
+                  } else {
+                    return null;
+                  }
+                },
               ),
               Divider(),
               // Label
