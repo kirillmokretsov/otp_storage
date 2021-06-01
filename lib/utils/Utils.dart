@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:otp/otp.dart';
 import 'package:recase/recase.dart';
@@ -52,6 +54,25 @@ class Utils {
 
       return result;
     }
+  }
+
+  static String toJsonString(IconData data) {
+    Map<String, dynamic> map = <String, dynamic>{};
+    map['codePoint'] = data.codePoint;
+    map['fontFamily'] = data.fontFamily;
+    map['fontPackage'] = data.fontPackage;
+    map['matchTextDirection'] = data.matchTextDirection;
+    return jsonEncode(map);
+  }
+
+  static IconData fromJsonString (String json) {
+    Map<String, dynamic> map = jsonDecode(json);
+    return IconData(
+      map['codePoint'],
+      fontFamily: map['fontFamily'],
+      fontPackage: map['fontPackage'],
+      matchTextDirection: map['matchTextDirection'],
+    );
   }
 
   static Secret parseUri(Uri uri) {
