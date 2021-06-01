@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:simple_icons/simple_icons.dart';
 
 class SimpleIconsGetter {
@@ -9,7 +9,11 @@ class SimpleIconsGetter {
     } catch (exception) {
       print(exception.toString() + '\nname: $name');
     }
+    // TODO: add more suitable icon
+    return Icons.cancel;
   }
+
+  static Map<String, IconData> getMap() => _map;
 
   static var _map = {
   'n42': SimpleIcons.n42,
