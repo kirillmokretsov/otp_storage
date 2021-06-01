@@ -14,14 +14,6 @@ class EditSecretDialog extends StatefulWidget {
 class _EditSecretDialogState extends State<EditSecretDialog> {
   Secret _secret;
 
-  String secret = '';
-  String type = '';
-  String label = '';
-  String issuer = '';
-  String counterOrPeriod = '';
-  String digits = '';
-  String algorithm = '';
-
   final _secretController = TextEditingController();
   final _typeController = TextEditingController();
   final _labelController = TextEditingController();
@@ -36,56 +28,20 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
   void initState() {
     super.initState();
 
-    _secretController.text = secret = _secret.secret;
-    _typeController.text = type = _secret.type.toString();
-    _labelController.text = label = _secret.label;
-    _issuerController.text = issuer = _secret.issuer;
+    _secretController.text = _secret.secret;
+    _typeController.text = _secret.type.toString();
+    _labelController.text = _secret.label;
+    _issuerController.text = _secret.issuer;
     if (_secret.type == OTPType.TOTP)
       _counterOrPeriodController.text =
-          counterOrPeriod = _secret.period.toString();
+          _secret.period.toString();
     else if (_secret.type == OTPType.HOTP)
       _counterOrPeriodController.text =
-          counterOrPeriod = _secret.counter.toString();
+          _secret.counter.toString();
     else
       throw Exception("Unknown OTP type");
-    _digitsController.text = digits = _secret.digits.toString();
-    _algorithmController.text = algorithm = _secret.algorithm.toString();
-
-    _secretController.addListener(
-      () {
-        secret = _secretController.text;
-      },
-    );
-    _typeController.addListener(
-      () {
-        type = _typeController.text;
-      },
-    );
-    _labelController.addListener(
-      () {
-        label = _labelController.text;
-      },
-    );
-    _issuerController.addListener(
-      () {
-        issuer = _issuerController.text;
-      },
-    );
-    _counterOrPeriodController.addListener(
-      () {
-        counterOrPeriod = _counterOrPeriodController.text;
-      },
-    );
-    _digitsController.addListener(
-      () {
-        digits = _digitsController.text;
-      },
-    );
-    _algorithmController.addListener(
-      () {
-        algorithm = _digitsController.text;
-      },
-    );
+    _digitsController.text = _secret.digits.toString();
+    _algorithmController.text = _secret.algorithm.toString();
   }
 
   @override
@@ -215,14 +171,14 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
         TextButton(
           onPressed: () {
             var map = _secret.toMap();
-            map['secret'] = secret;
-            map['type'] = type;
-            map['label'] = label;
-            map['issuer'] = issuer;
-            map['counter'] = int.parse(counterOrPeriod);
-            map['period'] = int.parse(counterOrPeriod);
-            map['digits'] = int.parse(digits);
-            map['algorithm'] = algorithm;
+            map['secret'] = _secretController.text;
+            map['type'] = _typeController.text;
+            map['label'] = _labelController.text;
+            map['issuer'] = _issuerController.text;
+            map['counter'] = int.parse(_counterOrPeriodController.text);
+            map['period'] = int.parse(_counterOrPeriodController.text);
+            map['digits'] = int.parse(_digitsController.text);
+            map['algorithm'] = _algorithmController.text;
             _secret = Secret.fromMap(map);
             Navigator.pop(context, _secret);
           },
