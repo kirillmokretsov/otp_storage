@@ -7,7 +7,6 @@ import '../dialog/TagsDialog.dart';
 import 'OTPText.dart';
 
 class OTPListTile extends StatefulWidget {
-
   final Secret _secret;
 
   const OTPListTile(this._secret, {Key key}) : super(key: key);
@@ -17,28 +16,27 @@ class OTPListTile extends StatefulWidget {
 }
 
 class _OTPListTileState extends State<OTPListTile> {
-
   Secret _secret;
 
   _OTPListTileState(this._secret);
 
   @override
   Widget build(BuildContext context) => ListTile(
-    leading: Icon(_secret.icon),
-    title: OTPText(_secret),
-    subtitle: Text(
-      _secret.label,
-      style: Theme.of(context).textTheme.bodyText2,
-    ),
-    trailing: _buildMenu(context),
-  );
+        leading: Icon(_secret.icon),
+        title: OTPText(_secret),
+        subtitle: Text(
+          _secret.label,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        trailing: _buildMenu(context),
+      );
 
   PopupMenuButton _buildMenu(BuildContext context) => PopupMenuButton(
-    itemBuilder: _buildMenuItems,
-    onSelected: (value) {
-      _onMenuItemSelected(value, context);
-    },
-  );
+        itemBuilder: _buildMenuItems,
+        onSelected: (value) {
+          _onMenuItemSelected(value, context);
+        },
+      );
 
   List<PopupMenuEntry<dynamic>> _buildMenuItems(BuildContext context) {
     List<PopupMenuEntry<dynamic>> entries = [];
@@ -79,7 +77,7 @@ class _OTPListTileState extends State<OTPListTile> {
   void _onMenuItemSelected(value, BuildContext context) async {
     switch (value as String) {
       case 'edit':
-      // TODO: show edit dialog
+        // TODO: show edit dialog
         break;
       case 'icon':
         final result = await showDialog(
@@ -89,6 +87,7 @@ class _OTPListTileState extends State<OTPListTile> {
         if (result != null && result is IconData) {
           _secret.icon = result;
           DB().updateSecret(_secret);
+          setState(() {});
         }
         break;
       case 'tags':
