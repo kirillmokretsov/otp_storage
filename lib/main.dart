@@ -5,8 +5,6 @@ import 'package:otp_storage/database/Database.dart';
 import 'page/OTPsListPage.dart';
 import 'datamodel/SecretDataModel.dart';
 
-// TODO: allow user to edit secret
-// TODO: allow user to manually set icons
 // TODO: add time indicator (maybe https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 // TODO: add encryption
 
