@@ -29,15 +29,15 @@ class Utils {
   static Algorithm parseOTPAlgorithm(String algorithm) {
     algorithm = algorithm.toLowerCase();
     switch (algorithm) {
-      case 'otpalgorithm.sha1':
+      case 'algorithm.sha1':
       case 'sha1':
         return Algorithm.SHA1;
         break;
-      case 'otpalgorithm.sha256':
+      case 'algorithm.sha256':
       case 'sha256':
         return Algorithm.SHA256;
         break;
-      case 'otpalgorithm.sha512':
+      case 'algorithm.sha512':
       case 'sha512':
         return Algorithm.SHA512;
         break;
