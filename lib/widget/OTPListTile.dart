@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
+import 'package:otp_storage/dialog/SetIconDialog.dart';
 
 import '../database/Database.dart';
-import 'OTPText.dart';
 import '../dialog/TagsDialog.dart';
 import '../utils/Utils.dart';
+import 'OTPText.dart';
 
 class OTPListTile extends ListTile {
   final Secret _secret;
@@ -73,7 +74,12 @@ class OTPListTile extends ListTile {
         // TODO: show edit dialog
         break;
       case 'icon':
-        // TODO: show set icon dialog
+        final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) => SetIconDialog(),
+        );
+        if (result != null && result is IconData) {
+        }
         break;
       case 'tags':
         final result = await showDialog(
