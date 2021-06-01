@@ -33,7 +33,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _secretController.dispose();
     _typeController.dispose();
     _labelController.dispose();
