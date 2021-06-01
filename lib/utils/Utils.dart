@@ -17,6 +17,10 @@ class Utils {
       case "totp":
         return OTPType.TOTP;
         break;
+      case 'otptype.hotp':
+      case 'hotp':
+        return OTPType.HOTP;
+        break;
       default:
         throw Exception("Unknown OTP type");
     }
