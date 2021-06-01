@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
+import 'package:otp_storage/dialog/EditSecretDialog.dart';
 import 'package:otp_storage/dialog/SetIconDialog.dart';
 
 import '../database/Database.dart';
@@ -77,7 +78,13 @@ class _OTPListTileState extends State<OTPListTile> {
   void _onMenuItemSelected(value, BuildContext context) async {
     switch (value as String) {
       case 'edit':
-        // TODO: show edit dialog
+        final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) => EditSecretDialog(_secret),
+        );
+        if (result != null && result is Secret) _secret = result;
+        DB().updateSecret(_secret);
+        setState(() {});
         break;
       case 'icon':
         final result = await showDialog(
