@@ -248,44 +248,43 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
       );
 
   Column _algorithmField(FocusScopeNode node) => Column(
-    children: [
-      RadioListTile(
-        title: Text('SHA1'),
-        value: Algorithm.SHA1,
-        groupValue: _algorithm,
-        onChanged: (newValue) {
-          setState(
+        children: [
+          RadioListTile(
+            title: Text('SHA1'),
+            value: Algorithm.SHA1,
+            groupValue: _algorithm,
+            onChanged: (newValue) {
+              setState(
                 () {
                   _algorithm = newValue;
+                },
+              );
             },
-          );
-        },
-      ),
-      RadioListTile(
-        title: Text('SHA256'),
-        value: Algorithm.SHA256,
-        groupValue: _algorithm,
-        onChanged: (newValue) {
-          setState(
+          ),
+          RadioListTile(
+            title: Text('SHA256'),
+            value: Algorithm.SHA256,
+            groupValue: _algorithm,
+            onChanged: (newValue) {
+              setState(
                 () {
-              _algorithm = newValue;
+                  _algorithm = newValue;
+                },
+              );
             },
-          );
-        },
-      ),
-      RadioListTile(
-        title: Text('SHA512'),
-        value: Algorithm.SHA512,
-        groupValue: _algorithm,
-        onChanged: (newValue) {
-          setState(
+          ),
+          RadioListTile(
+            title: Text('SHA512'),
+            value: Algorithm.SHA512,
+            groupValue: _algorithm,
+            onChanged: (newValue) {
+              setState(
                 () {
-              _algorithm = newValue;
+                  _algorithm = newValue;
+                },
+              );
             },
-          );
-        },
-      ),
-    ],
-  );
-
+          ),
+        ],
+      );
 }
