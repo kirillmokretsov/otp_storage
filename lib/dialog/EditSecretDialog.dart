@@ -15,13 +15,13 @@ class EditSecretDialog extends StatefulWidget {
 class _EditSecretDialogState extends State<EditSecretDialog> {
   Secret _secret;
   OTPType _type = OTPType.TOTP;
+  Algorithm _algorithm = Algorithm.SHA1;
 
   final _secretController = TextEditingController();
   final _labelController = TextEditingController();
   final _issuerController = TextEditingController();
   final _counterOrPeriodController = TextEditingController();
   final _digitsController = TextEditingController();
-  final _algorithmController = TextEditingController();
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
@@ -32,6 +32,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
     super.initState();
 
     _type = _secret.type;
+    _algorithm = _secret.algorithm;
     _secretController.text = _secret.secret;
     _labelController.text = _secret.label;
     _issuerController.text = _secret.issuer;
@@ -42,7 +43,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
     else
       throw Exception("Unknown OTP type");
     _digitsController.text = _secret.digits.toString();
-    _algorithmController.text = _secret.algorithm.toString();
   }
 
   @override
@@ -52,7 +52,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
     _issuerController.dispose();
     _counterOrPeriodController.dispose();
     _digitsController.dispose();
-    _algorithmController.dispose();
     super.dispose();
   }
 
@@ -105,7 +104,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
               map['counter'] = int.parse(_counterOrPeriodController.text);
               map['period'] = int.parse(_counterOrPeriodController.text);
               map['digits'] = int.parse(_digitsController.text);
-              map['algorithm'] = _algorithmController.text;
+              map['algorithm'] = _algorithm.toString();
               _secret = Secret.fromMap(map);
               Navigator.pop(context, _secret);
             }
@@ -247,27 +246,45 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
         },
       );
 
-  TextFormField _algorithmField(FocusScopeNode node) => TextFormField(
-        controller: _algorithmController,
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(),
-          ),
-          labelText: 'Algorithm',
-          hintText: 'Enter algorithm',
-        ),
-        onChanged: (string) => setState(() {}),
-        onEditingComplete: () => node.unfocus(),
-        validator: (string) {
-          if (string == null || string.isEmpty) {
-            return 'Algorithm must not be empty';
-          } else if (string != Algorithm.SHA1.toString() &&
-              string != Algorithm.SHA256.toString() &&
-              string != Algorithm.SHA512.toString()) {
-            return 'Algorithm must be ${Algorithm.SHA1} or ${Algorithm.SHA256} or ${Algorithm.SHA512}';
-          } else {
-            return null;
-          }
+  Column _algorithmField(FocusScopeNode node) => Column(
+    children: [
+      RadioListTile(
+        title: Text('SHA1'),
+        value: Algorithm.SHA1,
+        groupValue: _algorithm,
+        onChanged: (newValue) {
+          setState(
+                () {
+                  _algorithm = newValue;
+            },
+          );
         },
-      );
+      ),
+      RadioListTile(
+        title: Text('SHA256'),
+        value: Algorithm.SHA256,
+        groupValue: _algorithm,
+        onChanged: (newValue) {
+          setState(
+                () {
+              _algorithm = newValue;
+            },
+          );
+        },
+      ),
+      RadioListTile(
+        title: Text('SHA512'),
+        value: Algorithm.SHA512,
+        groupValue: _algorithm,
+        onChanged: (newValue) {
+          setState(
+                () {
+              _algorithm = newValue;
+            },
+          );
+        },
+      ),
+    ],
+  );
+
 }
