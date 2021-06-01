@@ -4,7 +4,6 @@ import 'package:otp_storage/dialog/SetIconDialog.dart';
 
 import '../database/Database.dart';
 import '../dialog/TagsDialog.dart';
-import '../utils/Utils.dart';
 import 'OTPText.dart';
 
 class OTPListTile extends ListTile {
@@ -15,7 +14,7 @@ class OTPListTile extends ListTile {
   @override
   Widget build(BuildContext context) => ListTile(
         leading: Icon(
-          Utils.findIconByName(_secret.issuer),
+          _secret.icon,
         ),
         title: OTPText(_secret),
         subtitle: Text(

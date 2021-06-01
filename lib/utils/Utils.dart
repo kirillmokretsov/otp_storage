@@ -5,8 +5,8 @@ import 'package:otp/otp.dart';
 import 'package:recase/recase.dart';
 import 'package:uuid/uuid.dart';
 
-import '../enum/OTPType.dart';
 import '../datamodel/SecretDataModel.dart';
+import '../enum/OTPType.dart';
 import 'SimpleIconsGetter.dart';
 
 class Utils {
@@ -65,7 +65,7 @@ class Utils {
     return jsonEncode(map);
   }
 
-  static IconData fromJsonString (String json) {
+  static IconData fromJsonString(String json) {
     Map<String, dynamic> map = jsonDecode(json);
     return IconData(
       map['codePoint'],
@@ -139,6 +139,7 @@ class Utils {
       digits: (digits as int),
       algorithm: (algorithm as Algorithm),
       tags: tags,
+      icon: Utils.findIconByName((issuer as String)),
     );
   }
 
