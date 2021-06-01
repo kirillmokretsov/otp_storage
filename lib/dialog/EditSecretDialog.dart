@@ -71,7 +71,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
           key: _key,
           child: ListView(
             children: [
-              // TODO: check what user types
               // Secret
               TextFormField(
                 controller: _secretController,
