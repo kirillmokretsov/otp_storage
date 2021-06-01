@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
 import 'package:otp_storage/dialog/SetIconDialog.dart';
+import 'package:otp_storage/widget/OTPIcon.dart';
 
 import '../database/Database.dart';
 import '../dialog/TagsDialog.dart';
@@ -13,9 +14,7 @@ class OTPListTile extends ListTile {
 
   @override
   Widget build(BuildContext context) => ListTile(
-        leading: Icon(
-          _secret.icon,
-        ),
+        leading: OTPIcon(_secret.icon),
         title: OTPText(_secret),
         subtitle: Text(
           _secret.label,
@@ -80,6 +79,7 @@ class OTPListTile extends ListTile {
         if (result != null && result is IconData) {
           _secret.icon = result;
           DB().updateSecret(_secret);
+          OTPIcon.of(context).updateIcon(result);
         }
         break;
       case 'tags':

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class OTPIcon extends StatefulWidget {
   final IconData _icon;
 
-  static _OTPIconState of(BuildContext context) => context.findAncestorStateOfType<_OTPIconState>();
+  static _OTPIconState of(BuildContext context) =>
+      context.findAncestorStateOfType<_OTPIconState>();
 
   OTPIcon(this._icon, {Key key}) : super(key: key);
 
   @override
   _OTPIconState createState() => _OTPIconState(_icon);
-
 }
 
 class _OTPIconState extends State<OTPIcon> {
@@ -17,8 +17,12 @@ class _OTPIconState extends State<OTPIcon> {
 
   _OTPIconState(this._icon);
 
-  void updateState() {
-    setState(() {});
+  void updateIcon(IconData newIcon) {
+    setState(
+      () {
+        _icon = newIcon;
+      },
+    );
   }
 
   @override
