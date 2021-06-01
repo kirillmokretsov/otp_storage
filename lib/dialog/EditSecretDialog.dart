@@ -154,6 +154,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
             },
           ),
           RadioListTile(
+            title: Text('HOTP'),
             value: OTPType.HOTP,
             groupValue: _type,
             onChanged: (newValue) {
