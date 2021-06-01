@@ -116,6 +116,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Secret',
                 hintText: 'Enter secret',
               ),
               onChanged: (string) => setState(() {}),
@@ -130,6 +131,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Type',
                 hintText: 'Enter type',
               ),
               onChanged: (string) => setState(() {}),
@@ -143,6 +145,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Label',
                 hintText: 'Enter label',
               ),
               onChanged: (string) => setState(() {}),
@@ -156,6 +159,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Issuer',
                 hintText: 'Enter issuer',
               ),
               onChanged: (string) => setState(() {}),
@@ -170,6 +174,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Counter or period',
                 hintText: 'Enter counter or period',
               ),
               onChanged: (string) => setState(() {}),
@@ -183,6 +188,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Digits',
                 hintText: 'Enter digits',
               ),
               onChanged: (string) => setState(() {}),
@@ -196,6 +202,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(),
                 ),
+                labelText: 'Algorithm',
                 hintText: 'Enter algorithm',
               ),
               onChanged: (string) => setState(() {}),
