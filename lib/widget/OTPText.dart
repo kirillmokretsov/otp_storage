@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 
 import '../enum/OTPType.dart';
-import '../page/OTPsListPage.dart';
 import '../datamodel/SecretDataModel.dart';
 
 class OTPText extends StatefulWidget {
@@ -23,23 +22,29 @@ class _OTPTextState extends State<OTPText> {
   _OTPTextState(this._secret);
 
   String getCode() {
-    if (_secret.type == OTPType.TOTP) {
-      return OTP.generateTOTPCodeString(
-        _secret.secret,
-        DateTime.now().millisecondsSinceEpoch,
-        length: _secret.digits,
-        interval: _secret.period,
-        algorithm: _secret.algorithm,
-      );
-    } else if (_secret.type == OTPType.HOTP) {
-      return OTP.generateHOTPCodeString(
-        _secret.secret,
-        _secret.counter,
-        length: _secret.digits,
-        algorithm: _secret.algorithm,
-      );
-    } else
-      throw Exception("Unknown OTP type");
+    try {
+      if (_secret.type == OTPType.TOTP) {
+        return OTP.generateTOTPCodeString(
+          _secret.secret,
+          DateTime
+              .now()
+              .millisecondsSinceEpoch,
+          length: _secret.digits,
+          interval: _secret.period,
+          algorithm: _secret.algorithm,
+        );
+      } else if (_secret.type == OTPType.HOTP) {
+        return OTP.generateHOTPCodeString(
+          _secret.secret,
+          _secret.counter,
+          length: _secret.digits,
+          algorithm: _secret.algorithm,
+        );
+      } else
+        throw Exception("Unknown OTP type");
+    } catch (exception) {
+      return exception.toString();
+    }
   }
 
   @override
