@@ -109,9 +109,9 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 validator: (string) {
                   if (string == null || string.isEmpty) {
                     return 'Type must not be empty';
-                  } else if (string != 'OTPType.TOTP' ||
-                      string != 'OTPType.HOTP') {
-                    return 'Invalid OTP type: should be \'OTPType.TOTP\' or \'OTPType.HOTP\'';
+                  } else if (string != OTPType.TOTP.toString() &&
+                      string != OTPType.HOTP.toString()) {
+                    return 'OTP type must be ${OTPType.TOTP} or ${OTPType.HOTP}';
                   } else {
                     return null;
                   }
