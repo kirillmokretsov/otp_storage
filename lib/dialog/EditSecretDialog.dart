@@ -72,158 +72,25 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
           key: _key,
           child: ListView(
             children: [
-              // Secret
-              TextFormField(
-                controller: _secretController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: 'Secret',
-                  hintText: 'Enter secret',
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.nextFocus(),
-                validator: (string) {
-                  if (string == null || string.isEmpty) {
-                    return "Secret must not be empty";
-                  } else if (string.length % 2 != 0 ||
-                      !RegExp(r'^[A-Z2-7=]+$').hasMatch(string)) {
-                    // Check that it is base32
-                    return "Provide valid base32 string";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+              _secretField(node),
               Divider(),
-              // Type
               // TODO: make radio button instead
-              TextFormField(
-                controller: _typeController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: 'Type',
-                  hintText: 'Enter type',
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.nextFocus(),
-                validator: (string) {
-                  if (string == null || string.isEmpty) {
-                    return 'Type must not be empty';
-                  } else if (string != OTPType.TOTP.toString() &&
-                      string != OTPType.HOTP.toString()) {
-                    return 'OTP type must be ${OTPType.TOTP} or ${OTPType.HOTP}';
-                  } else {
-                    return null;
-                  }
-                },
+              _typeField(node),
+              Divider(),
+              _labelField(node),
+              Divider(),
+              _issuerField(node),
+              Divider(),
+              _counterOrPeriodField(
+                node,
+                counterOrPeriodLabel,
+                counterOrPeriodHint,
               ),
               Divider(),
-              // Label
-              TextFormField(
-                controller: _labelController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: 'Label',
-                  hintText: 'Enter label',
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.nextFocus(),
-              ),
+              _digitsField(node),
               Divider(),
-              // Issuer
-              TextFormField(
-                controller: _issuerController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: 'Issuer',
-                  hintText: 'Enter issuer',
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.nextFocus(),
-              ),
-              Divider(),
-              // Counter or period (depends on type)
-              TextFormField(
-                controller: _counterOrPeriodController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: counterOrPeriodLabel,
-                  hintText: counterOrPeriodHint,
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.nextFocus(),
-                validator: (string) {
-                  if (string == null || string.isEmpty) {
-                    return "Period or counter must not be empty";
-                  }
-                  try {
-                    int.parse(string);
-                    return null;
-                  } catch (exception) {
-                    return 'Provide integer';
-                  }
-                },
-              ),
-              Divider(),
-              // Digits
-              TextFormField(
-                controller: _digitsController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: 'Digits',
-                  hintText: 'Enter digits',
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.nextFocus(),
-                validator: (string) {
-                  if (string == null || string.isEmpty) {
-                    return "Digits must not be empty";
-                  }
-                  try {
-                    int.parse(string);
-                    return null;
-                  } catch (exception) {
-                    return 'Provide integer';
-                  }
-                },
-              ),
-              Divider(),
-              // Algorithm
-              TextFormField(
-                controller: _algorithmController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                  labelText: 'Algorithm',
-                  hintText: 'Enter algorithm',
-                ),
-                onChanged: (string) => setState(() {}),
-                onEditingComplete: () => node.unfocus(),
-                validator: (string) {
-                  if (string == null || string.isEmpty) {
-                    return 'Algorithm must not be empty';
-                  } else if (string != Algorithm.SHA1.toString() &&
-                      string != Algorithm.SHA256.toString() &&
-                      string != Algorithm.SHA512.toString()) {
-                    return 'Algorithm must be ${Algorithm.SHA1} or ${Algorithm.SHA256} or ${Algorithm.SHA512}';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+              // TODO: make radio button instead
+              _algorithmField(node),
             ],
           ),
         ),
@@ -250,4 +117,154 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
       ],
     );
   }
+
+  TextFormField _secretField(FocusScopeNode node) => TextFormField(
+        controller: _secretController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: 'Secret',
+          hintText: 'Enter secret',
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.nextFocus(),
+        validator: (string) {
+          if (string == null || string.isEmpty) {
+            return "Secret must not be empty";
+          } else if (string.length % 2 != 0 ||
+              !RegExp(r'^[A-Z2-7=]+$').hasMatch(string)) {
+            // Check that it is base32
+            return "Provide valid base32 string";
+          } else {
+            return null;
+          }
+        },
+      );
+
+  TextFormField _typeField(FocusScopeNode node) => TextFormField(
+        controller: _typeController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: 'Type',
+          hintText: 'Enter type',
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.nextFocus(),
+        validator: (string) {
+          if (string == null || string.isEmpty) {
+            return 'Type must not be empty';
+          } else if (string != OTPType.TOTP.toString() &&
+              string != OTPType.HOTP.toString()) {
+            return 'OTP type must be ${OTPType.TOTP} or ${OTPType.HOTP}';
+          } else {
+            return null;
+          }
+        },
+      );
+
+  TextFormField _labelField(FocusScopeNode node) => TextFormField(
+        controller: _labelController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: 'Label',
+          hintText: 'Enter label',
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.nextFocus(),
+      );
+
+  TextFormField _issuerField(FocusScopeNode node) => TextFormField(
+        controller: _issuerController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: 'Issuer',
+          hintText: 'Enter issuer',
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.nextFocus(),
+      );
+
+  TextFormField _counterOrPeriodField(
+    FocusScopeNode node,
+    String counterOrPeriodLabel,
+    String counterOrPeriodHint,
+  ) =>
+      TextFormField(
+        controller: _counterOrPeriodController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: counterOrPeriodLabel,
+          hintText: counterOrPeriodHint,
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.nextFocus(),
+        validator: (string) {
+          if (string == null || string.isEmpty) {
+            return "Period or counter must not be empty";
+          }
+          try {
+            int.parse(string);
+            return null;
+          } catch (exception) {
+            return 'Provide integer';
+          }
+        },
+      );
+
+  TextFormField _digitsField(FocusScopeNode node) => TextFormField(
+        controller: _digitsController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: 'Digits',
+          hintText: 'Enter digits',
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.nextFocus(),
+        validator: (string) {
+          if (string == null || string.isEmpty) {
+            return "Digits must not be empty";
+          }
+          try {
+            int.parse(string);
+            return null;
+          } catch (exception) {
+            return 'Provide integer';
+          }
+        },
+      );
+
+  TextFormField _algorithmField(FocusScopeNode node) => TextFormField(
+        controller: _algorithmController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          labelText: 'Algorithm',
+          hintText: 'Enter algorithm',
+        ),
+        onChanged: (string) => setState(() {}),
+        onEditingComplete: () => node.unfocus(),
+        validator: (string) {
+          if (string == null || string.isEmpty) {
+            return 'Algorithm must not be empty';
+          } else if (string != Algorithm.SHA1.toString() &&
+              string != Algorithm.SHA256.toString() &&
+              string != Algorithm.SHA512.toString()) {
+            return 'Algorithm must be ${Algorithm.SHA1} or ${Algorithm.SHA256} or ${Algorithm.SHA512}';
+          } else {
+            return null;
+          }
+        },
+      );
 }
