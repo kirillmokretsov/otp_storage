@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otp/otp.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
 import 'package:otp_storage/enum/OTPType.dart';
 
@@ -208,7 +209,17 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: close keyboard,
-                // TODO: add validator
+                validator: (string) {
+                  if (string == null || string.isEmpty) {
+                    return 'Algorithm must not be empty';
+                  } else if (string != Algorithm.SHA1.toString() &&
+                      string != Algorithm.SHA256.toString() &&
+                      string != Algorithm.SHA512.toString()) {
+                    return 'Algorithm must be ${Algorithm.SHA1} or ${Algorithm.SHA256} or ${Algorithm.SHA512}';
+                  } else {
+                    return null;
+                  }
+                },
               ),
             ],
           ),
