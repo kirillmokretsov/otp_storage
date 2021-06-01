@@ -86,7 +86,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
               Divider(),
               _digitsField(node),
               Divider(),
-              // TODO: make radio button instead
               _algorithmField(node),
             ],
           ),
