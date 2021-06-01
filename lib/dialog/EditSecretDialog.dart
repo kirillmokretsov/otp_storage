@@ -59,6 +59,10 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var counterOrPeriodLabel =
+        _secret.type == OTPType.HOTP ? 'Counter' : 'Period';
+    var counterOrPeriodHint =
+        _secret.type == OTPType.HOTP ? 'Enter counter' : 'Enter period';
     return AlertDialog(
       title: Text("Enter new values"),
       content: Container(
@@ -147,15 +151,14 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
               ),
               Divider(),
               // Counter or period (depends on type)
-              // TODO: change hint text by type
               TextFormField(
                 controller: _counterOrPeriodController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(),
                   ),
-                  labelText: 'Counter or period',
-                  hintText: 'Enter counter or period',
+                  labelText: counterOrPeriodLabel,
+                  hintText: counterOrPeriodHint,
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
