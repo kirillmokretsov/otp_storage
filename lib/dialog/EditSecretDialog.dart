@@ -143,7 +143,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
-                // TODO: add validator
               ),
               Divider(),
               // Counter or period (depends on type)
