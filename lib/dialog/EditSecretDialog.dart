@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
 
 class EditSecretDialog extends StatefulWidget {
-
   final Secret _secret;
 
   const EditSecretDialog(this._secret, {Key key}) : super(key: key);
@@ -12,8 +11,15 @@ class EditSecretDialog extends StatefulWidget {
 }
 
 class _EditSecretDialogState extends State<EditSecretDialog> {
-
   Secret _secret;
+
+  String secret = '';
+  String type = '';
+  String label = '';
+  String issuer = '';
+  String counterOrPeriod = '';
+  String digits = '';
+  String algorithm = '';
 
   final _secretController = TextEditingController();
   final _typeController = TextEditingController();
@@ -27,8 +33,42 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _secretController.addListener(
+      () {
+        secret = _secretController.text;
+      },
+    );
+    _typeController.addListener(
+      () {
+        type = _typeController.text;
+      },
+    );
+    _labelController.addListener(
+      () {
+        label = _labelController.text;
+      },
+    );
+    _issuerController.addListener(
+      () {
+        issuer = _issuerController.text;
+      },
+    );
+    _counterOrPeriodController.addListener(
+      () {
+        counterOrPeriod = _counterOrPeriodController.text;
+      },
+    );
+    _digitsController.addListener(
+      () {
+        digits = _digitsController.text;
+      },
+    );
+    _algorithmController.addListener(
+      () {
+        algorithm = _digitsController.text;
+      },
+    );
   }
 
   @override
@@ -51,6 +91,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
         width: MediaQuery.of(context).size.width / 1.2,
         child: ListView(
           children: [
+            // TODO: check what user types
             // Secret
             TextField(
               controller: _secretController,
@@ -149,6 +190,16 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
       actions: [
         TextButton(
           onPressed: () {
+            var map = _secret.toMap();
+            map['secret'] = secret;
+            map['type'] = type;
+            map['label'] = label;
+            map['issuer'] = issuer;
+            map['counter'] = int.parse(counterOrPeriod);
+            map['period'] = int.parse(counterOrPeriod);
+            map['digits'] = int.parse(digits);
+            map['algorithm'] = algorithm;
+            _secret = Secret.fromMap(map);
             Navigator.pop(context, _secret);
           },
           child: Text("Save"),
