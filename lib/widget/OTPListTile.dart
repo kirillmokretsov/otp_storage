@@ -78,6 +78,8 @@ class OTPListTile extends ListTile {
           builder: (BuildContext context) => SetIconDialog(),
         );
         if (result != null && result is IconData) {
+          _secret.icon = result;
+          DB().updateSecret(_secret);
         }
         break;
       case 'tags':
