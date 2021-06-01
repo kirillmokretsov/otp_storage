@@ -14,9 +14,9 @@ class EditSecretDialog extends StatefulWidget {
 
 class _EditSecretDialogState extends State<EditSecretDialog> {
   Secret _secret;
+  OTPType _type = OTPType.TOTP;
 
   final _secretController = TextEditingController();
-  final _typeController = TextEditingController();
   final _labelController = TextEditingController();
   final _issuerController = TextEditingController();
   final _counterOrPeriodController = TextEditingController();
@@ -31,8 +31,8 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
   void initState() {
     super.initState();
 
+    _type = _secret.type;
     _secretController.text = _secret.secret;
-    _typeController.text = _secret.type.toString();
     _labelController.text = _secret.label;
     _issuerController.text = _secret.issuer;
     if (_secret.type == OTPType.TOTP)
@@ -48,7 +48,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
   @override
   void dispose() {
     _secretController.dispose();
-    _typeController.dispose();
     _labelController.dispose();
     _issuerController.dispose();
     _counterOrPeriodController.dispose();
@@ -74,7 +73,6 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
             children: [
               _secretField(node),
               Divider(),
-              // TODO: make radio button instead
               _typeField(node),
               Divider(),
               _labelField(node),
@@ -101,7 +99,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
             if (_key.currentState.validate()) {
               var map = _secret.toMap();
               map['secret'] = _secretController.text;
-              map['type'] = _typeController.text;
+              map['type'] = _type.toString();
               map['label'] = _labelController.text;
               map['issuer'] = _issuerController.text;
               map['counter'] = int.parse(_counterOrPeriodController.text);
@@ -142,27 +140,32 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
         },
       );
 
-  TextFormField _typeField(FocusScopeNode node) => TextFormField(
-        controller: _typeController,
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(),
+  Column _typeField(FocusScopeNode node) => Column(
+        children: [
+          RadioListTile(
+            title: Text('TOTP'),
+            value: OTPType.TOTP,
+            groupValue: _type,
+            onChanged: (newValue) {
+              setState(
+                () {
+                  _type = newValue;
+                },
+              );
+            },
           ),
-          labelText: 'Type',
-          hintText: 'Enter type',
-        ),
-        onChanged: (string) => setState(() {}),
-        onEditingComplete: () => node.nextFocus(),
-        validator: (string) {
-          if (string == null || string.isEmpty) {
-            return 'Type must not be empty';
-          } else if (string != OTPType.TOTP.toString() &&
-              string != OTPType.HOTP.toString()) {
-            return 'OTP type must be ${OTPType.TOTP} or ${OTPType.HOTP}';
-          } else {
-            return null;
-          }
-        },
+          RadioListTile(
+            value: OTPType.HOTP,
+            groupValue: _type,
+            onChanged: (newValue) {
+              setState(
+                () {
+                  _type = newValue;
+                },
+              );
+            },
+          ),
+        ],
       );
 
   TextFormField _labelField(FocusScopeNode node) => TextFormField(
