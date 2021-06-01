@@ -26,6 +26,25 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
   _EditSecretDialogState(this._secret);
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _secretController.dispose();
+    _typeController.dispose();
+    _labelController.dispose();
+    _issuerController.dispose();
+    _counterOrPeriodController.dispose();
+    _digitsController.dispose();
+    _algorithmController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Enter new values"),
