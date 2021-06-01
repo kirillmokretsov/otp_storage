@@ -183,7 +183,17 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
-                // TODO: add validator
+                validator: (string) {
+                  if (string == null || string.isEmpty) {
+                    return "Digits must not be empty";
+                  }
+                  try {
+                    int.parse(string);
+                    return null;
+                  } catch (exception) {
+                    return 'Provide integer';
+                  }
+                },
               ),
               Divider(),
               // Algorithm
