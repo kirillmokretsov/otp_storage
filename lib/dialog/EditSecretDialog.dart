@@ -68,7 +68,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
             children: [
               // TODO: check what user types
               // Secret
-              TextField(
+              TextFormField(
                 controller: _secretController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -79,11 +79,12 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
+                // TODO: add validator
               ),
               Divider(),
               // Type
               // TODO: make radio button instead
-              TextField(
+              TextFormField(
                 controller: _typeController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -94,10 +95,11 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
+                // TODO: add validator
               ),
               Divider(),
               // Label
-              TextField(
+              TextFormField(
                 controller: _labelController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -108,10 +110,11 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
+                // TODO: add validator
               ),
               Divider(),
               // Issuer
-              TextField(
+              TextFormField(
                 controller: _issuerController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -122,11 +125,12 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
+                // TODO: add validator
               ),
               Divider(),
               // Counter or period (depends on type)
               // TODO: change hint text by type
-              TextField(
+              TextFormField(
                 controller: _counterOrPeriodController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -137,10 +141,11 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
+                // TODO: add validator
               ),
               Divider(),
               // Digits
-              TextField(
+              TextFormField(
                 controller: _digitsController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -151,10 +156,11 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: continue to next field,
+                // TODO: add validator
               ),
               Divider(),
               // Algorithm
-              TextField(
+              TextFormField(
                 controller: _algorithmController,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -165,6 +171,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
                 ),
                 onChanged: (string) => setState(() {}),
                 // onSubmitted: // TODO: close keyboard,
+                // TODO: add validator
               ),
             ],
           ),
