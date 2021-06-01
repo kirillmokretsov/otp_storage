@@ -22,6 +22,8 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
   final _digitsController = TextEditingController();
   final _algorithmController = TextEditingController();
 
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
   _EditSecretDialogState(this._secret);
 
   @override
@@ -33,11 +35,9 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
     _labelController.text = _secret.label;
     _issuerController.text = _secret.issuer;
     if (_secret.type == OTPType.TOTP)
-      _counterOrPeriodController.text =
-          _secret.period.toString();
+      _counterOrPeriodController.text = _secret.period.toString();
     else if (_secret.type == OTPType.HOTP)
-      _counterOrPeriodController.text =
-          _secret.counter.toString();
+      _counterOrPeriodController.text = _secret.counter.toString();
     else
       throw Exception("Unknown OTP type");
     _digitsController.text = _secret.digits.toString();
@@ -62,109 +62,112 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
       title: Text("Enter new values"),
       content: Container(
         width: MediaQuery.of(context).size.width / 1.2,
-        child: ListView(
-          children: [
-            // TODO: check what user types
-            // Secret
-            TextField(
-              controller: _secretController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+        child: Form(
+          key: _key,
+          child: ListView(
+            children: [
+              // TODO: check what user types
+              // Secret
+              TextField(
+                controller: _secretController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Secret',
+                  hintText: 'Enter secret',
                 ),
-                labelText: 'Secret',
-                hintText: 'Enter secret',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: continue to next field,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: continue to next field,
-            ),
-            Divider(),
-            // Type
-            // TODO: make radio button instead
-            TextField(
-              controller: _typeController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+              Divider(),
+              // Type
+              // TODO: make radio button instead
+              TextField(
+                controller: _typeController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Type',
+                  hintText: 'Enter type',
                 ),
-                labelText: 'Type',
-                hintText: 'Enter type',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: continue to next field,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: continue to next field,
-            ),
-            Divider(),
-            // Label
-            TextField(
-              controller: _labelController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+              Divider(),
+              // Label
+              TextField(
+                controller: _labelController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Label',
+                  hintText: 'Enter label',
                 ),
-                labelText: 'Label',
-                hintText: 'Enter label',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: continue to next field,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: continue to next field,
-            ),
-            Divider(),
-            // Issuer
-            TextField(
-              controller: _issuerController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+              Divider(),
+              // Issuer
+              TextField(
+                controller: _issuerController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Issuer',
+                  hintText: 'Enter issuer',
                 ),
-                labelText: 'Issuer',
-                hintText: 'Enter issuer',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: continue to next field,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: continue to next field,
-            ),
-            Divider(),
-            // Counter or period (depends on type)
-            // TODO: change hint text by type
-            TextField(
-              controller: _counterOrPeriodController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+              Divider(),
+              // Counter or period (depends on type)
+              // TODO: change hint text by type
+              TextField(
+                controller: _counterOrPeriodController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Counter or period',
+                  hintText: 'Enter counter or period',
                 ),
-                labelText: 'Counter or period',
-                hintText: 'Enter counter or period',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: continue to next field,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: continue to next field,
-            ),
-            Divider(),
-            // Digits
-            TextField(
-              controller: _digitsController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+              Divider(),
+              // Digits
+              TextField(
+                controller: _digitsController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Digits',
+                  hintText: 'Enter digits',
                 ),
-                labelText: 'Digits',
-                hintText: 'Enter digits',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: continue to next field,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: continue to next field,
-            ),
-            Divider(),
-            // Algorithm
-            TextField(
-              controller: _algorithmController,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
+              Divider(),
+              // Algorithm
+              TextField(
+                controller: _algorithmController,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  labelText: 'Algorithm',
+                  hintText: 'Enter algorithm',
                 ),
-                labelText: 'Algorithm',
-                hintText: 'Enter algorithm',
+                onChanged: (string) => setState(() {}),
+                // onSubmitted: // TODO: close keyboard,
               ),
-              onChanged: (string) => setState(() {}),
-              // onSubmitted: // TODO: close keyboard,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       actions: [
