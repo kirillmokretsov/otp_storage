@@ -228,17 +228,19 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            var map = _secret.toMap();
-            map['secret'] = _secretController.text;
-            map['type'] = _typeController.text;
-            map['label'] = _labelController.text;
-            map['issuer'] = _issuerController.text;
-            map['counter'] = int.parse(_counterOrPeriodController.text);
-            map['period'] = int.parse(_counterOrPeriodController.text);
-            map['digits'] = int.parse(_digitsController.text);
-            map['algorithm'] = _algorithmController.text;
-            _secret = Secret.fromMap(map);
-            Navigator.pop(context, _secret);
+            if (_key.currentState.validate()) {
+              var map = _secret.toMap();
+              map['secret'] = _secretController.text;
+              map['type'] = _typeController.text;
+              map['label'] = _labelController.text;
+              map['issuer'] = _issuerController.text;
+              map['counter'] = int.parse(_counterOrPeriodController.text);
+              map['period'] = int.parse(_counterOrPeriodController.text);
+              map['digits'] = int.parse(_digitsController.text);
+              map['algorithm'] = _algorithmController.text;
+              _secret = Secret.fromMap(map);
+              Navigator.pop(context, _secret);
+            }
           },
           child: Text("Save"),
         ),
