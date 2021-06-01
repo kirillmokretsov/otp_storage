@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 
 import '../enum/OTPType.dart';
-import '../page/OTPsListPage.dart';
 import '../utils/Utils.dart';
 
 class Secret {
@@ -15,6 +15,7 @@ class Secret {
   final int digits;
   final Algorithm algorithm;
   List<String> tags;
+  IconData icon;
 
   Secret({
     this.id,
@@ -27,6 +28,7 @@ class Secret {
     this.digits,
     this.algorithm,
     this.tags,
+    this.icon,
   });
 
   Map<String, dynamic> toMap() => {
@@ -40,6 +42,7 @@ class Secret {
         'digits': digits,
         'algorithm': algorithm.toString(),
         'tags': tags.toString(),
+        'icon': Utils.toJsonString(icon),
       };
 
   static Secret fromMap(Map<String, dynamic> map) => Secret(
@@ -53,6 +56,7 @@ class Secret {
         digits: map['digits'],
         algorithm: Utils.parseOTPAlgorithm(map['algorithm']),
         tags: Utils.parseTags(map['tags']),
+        icon: Utils.fromJsonString(map['icon']),
       );
 
   String toString() =>

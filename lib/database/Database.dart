@@ -22,7 +22,7 @@ class DB {
       join(await getDatabasesPath(), dbName),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE $tableName(id TEXT PRIMARY KEY, type TEXT NOT NULL, label TEXT, secret TEXT NOT NULL, issuer TEXT, counter INTEGER, period INTEGER NOT NULL, digits INTEGER NOT NULL, algorithm TEXT NOT NULL, tags TEXT)',
+          'CREATE TABLE $tableName(id TEXT PRIMARY KEY, type TEXT NOT NULL, label TEXT, secret TEXT NOT NULL, issuer TEXT, counter INTEGER, period INTEGER NOT NULL, digits INTEGER NOT NULL, algorithm TEXT NOT NULL, tags TEXT, icon TEXT)',
         );
       },
       version: 1,
