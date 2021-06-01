@@ -1,34 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
 import 'package:otp_storage/dialog/SetIconDialog.dart';
-import 'package:otp_storage/widget/OTPIcon.dart';
 
 import '../database/Database.dart';
 import '../dialog/TagsDialog.dart';
 import 'OTPText.dart';
 
-class OTPListTile extends ListTile {
+class OTPListTile extends StatefulWidget {
+
   final Secret _secret;
 
   const OTPListTile(this._secret, {Key key}) : super(key: key);
 
   @override
+  _OTPListTileState createState() => _OTPListTileState(_secret);
+}
+
+class _OTPListTileState extends State<OTPListTile> {
+
+  Secret _secret;
+
+  _OTPListTileState(this._secret);
+
+  @override
   Widget build(BuildContext context) => ListTile(
-        leading: OTPIcon(_secret.icon),
-        title: OTPText(_secret),
-        subtitle: Text(
-          _secret.label,
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-        trailing: _buildMenu(context),
-      );
+    leading: Icon(_secret.icon),
+    title: OTPText(_secret),
+    subtitle: Text(
+      _secret.label,
+      style: Theme.of(context).textTheme.bodyText2,
+    ),
+    trailing: _buildMenu(context),
+  );
 
   PopupMenuButton _buildMenu(BuildContext context) => PopupMenuButton(
-        itemBuilder: _buildMenuItems,
-        onSelected: (value) {
-          _onMenuItemSelected(value, context);
-        },
-      );
+    itemBuilder: _buildMenuItems,
+    onSelected: (value) {
+      _onMenuItemSelected(value, context);
+    },
+  );
 
   List<PopupMenuEntry<dynamic>> _buildMenuItems(BuildContext context) {
     List<PopupMenuEntry<dynamic>> entries = [];
@@ -69,7 +79,7 @@ class OTPListTile extends ListTile {
   void _onMenuItemSelected(value, BuildContext context) async {
     switch (value as String) {
       case 'edit':
-        // TODO: show edit dialog
+      // TODO: show edit dialog
         break;
       case 'icon':
         final result = await showDialog(
@@ -79,7 +89,6 @@ class OTPListTile extends ListTile {
         if (result != null && result is IconData) {
           _secret.icon = result;
           DB().updateSecret(_secret);
-          OTPIcon.of(context).updateIcon(result);
         }
         break;
       case 'tags':

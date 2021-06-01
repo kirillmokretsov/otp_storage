@@ -21,7 +21,7 @@ class _OTPsListPageState extends State<OTPsListPage> {
 
   _OTPsListPageState(this._listOfSecrets);
 
-  ListTile buildTile(BuildContext context, int index) =>
+  Widget buildTile(BuildContext context, int index) =>
       OTPListTile(_listOfSecrets[index]);
 
   @override
