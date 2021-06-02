@@ -6,6 +6,7 @@ import 'package:otp/otp.dart';
 import 'package:recase/recase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:crypto/crypto.dart';
 
 import '../datamodel/SecretDataModel.dart';
 import '../enum/OTPType.dart';
@@ -182,7 +183,7 @@ class Utils {
     if (encryptedTest == '' || decryptedTest == '') {
       throw Exception('No encrypted_test or decrypted_test shared preference');
     } else {
-      final key = encrypt.Key.fromUtf8(_key);
+      final key = encrypt.Key(sha256.convert(utf8.encode(_key)).bytes);
       final encrypter =
           encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
       final encrypted = encrypt.Encrypted.fromBase64(encryptedTest);
@@ -194,7 +195,7 @@ class Utils {
 
   static Map<String, String> getEncryptedDecryptedTest(String _key) {
     String decrypted = 'Fox-fox is fast but key is faster';
-    final key = encrypt.Key.fromUtf8(_key);
+    final key = encrypt.Key(sha256.convert(utf8.encode(_key)).bytes);
     final encrypter =
         encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
     final encrypted =
@@ -203,7 +204,7 @@ class Utils {
   }
 
   static String decryptSecret(String encryptedSecret, String _key) {
-    final key = encrypt.Key.fromUtf8(_key);
+    final key = encrypt.Key(sha256.convert(utf8.encode(_key)).bytes);
     final encrypter =
         encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
     return encrypter.decrypt64(encryptedSecret,
@@ -211,7 +212,7 @@ class Utils {
   }
 
   static String encryptSecret(String secret, String _key) {
-    final key = encrypt.Key.fromUtf8(_key);
+    final key = encrypt.Key(sha256.convert(utf8.encode(_key)).bytes);
     final encrypter =
         encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
     return encrypter.encrypt(secret, iv: encrypt.IV.fromUtf8('input')).base64;
