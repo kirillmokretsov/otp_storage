@@ -1,16 +1,40 @@
-# otp_storage
+# OTP Storage
 
-A new Flutter project.
+Secure storage for one-time password
 
-## Getting Started
+- Supports both TOTP and HOTP algorithms  
+- Always encrypts secrets  
+- Sets icon for secret (depends on issuer)  
+- Allows you to add description and tags
 
-This project is a starting point for a Flutter application.
+## Build
 
-A few resources to get you started if this is your first Flutter project:
+### Android
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Follow steps to [sign your app](https://flutter.dev/docs/deployment/android#signing-the-app)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Linux CLI
+
+Run:  
+``` shell script
+git clone https://github.com/kirillmokretsov/otp_storage.git
+cd otp_storage
+flutter pub get 
+flutter build apk --no-tree-shake-icons
+```
+
+Now you can get apk in ``build/app/outputs/flutter-apk/app-release.apk``
+
+## Screenshots
+
+<img src="./github/static/images/1.jpg" alt="drawing" width="540"/>
+
+<img src="./github/static/images/2.jpg" alt="drawing" width="540"/>
+
+<img src="./github/static/images/3.jpg" alt="drawing" width="540"/>
+
+<img src="./github/static/images/4.jpg" alt="drawing" width="540"/>
+
+## License
+
+Source code available under [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses).
