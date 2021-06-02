@@ -42,6 +42,7 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    // TODO: add check that key is valid
                     List<Secret> _listOfSecrets = await DB().getSecrets();
                     Navigator.pushReplacement(
                       context,
