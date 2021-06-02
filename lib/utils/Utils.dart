@@ -202,4 +202,16 @@ class Utils {
     };
   }
 
+  static String decryptSecret(String encryptedSecret, String _key) {
+    final key = encrypt.Key.fromUtf8(_key);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    return encrypter.decrypt64(encryptedSecret);
+  }
+
+  static String encryptSecret(String secret, String _key) {
+    final key = encrypt.Key.fromUtf8(_key);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    return encrypter.encrypt(secret).base64;
+  }
+
 }
