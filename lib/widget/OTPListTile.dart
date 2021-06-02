@@ -9,17 +9,20 @@ import 'OTPText.dart';
 
 class OTPListTile extends StatefulWidget {
   final Secret _secret;
+  final String _encryptionKey;
 
-  const OTPListTile(this._secret, {Key key}) : super(key: key);
+  const OTPListTile(this._secret, this._encryptionKey, {Key key})
+      : super(key: key);
 
   @override
-  _OTPListTileState createState() => _OTPListTileState(_secret);
+  _OTPListTileState createState() => _OTPListTileState(_secret, _encryptionKey);
 }
 
 class _OTPListTileState extends State<OTPListTile> {
   Secret _secret;
+  String _encryptionKey;
 
-  _OTPListTileState(this._secret);
+  _OTPListTileState(this._secret, this._encryptionKey);
 
   @override
   Widget build(BuildContext context) => ListTile(
@@ -80,7 +83,8 @@ class _OTPListTileState extends State<OTPListTile> {
       case 'edit':
         final result = await showDialog(
           context: context,
-          builder: (BuildContext context) => EditSecretDialog(_secret),
+          builder: (BuildContext context) =>
+              EditSecretDialog(_secret, _encryptionKey),
         );
         if (result != null && result is Secret) _secret = result;
         DB().updateSecret(_secret);
