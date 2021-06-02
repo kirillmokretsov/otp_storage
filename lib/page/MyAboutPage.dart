@@ -23,7 +23,7 @@ class MyAboutPage {
       ),
       applicationLegalese: 'Copyright © Kirill Mokretsov, {{ year }}',
       applicationDescription: Text(
-        'Storage for one-time passwords',
+        'Secure storage for one-time passwords',
         style: Theme.of(context).textTheme.bodyText2,
       ),
       children: <Widget>[
