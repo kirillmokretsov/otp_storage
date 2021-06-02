@@ -87,7 +87,7 @@ class _OTPListTileState extends State<OTPListTile> {
               EditSecretDialog(_secret, _encryptionKey),
         );
         if (result != null && result is Secret) _secret = result;
-        DB().updateSecret(_secret);
+        DB().updateSecret(_secret, _encryptionKey);
         setState(() {});
         break;
       case 'icon':
@@ -97,7 +97,7 @@ class _OTPListTileState extends State<OTPListTile> {
         );
         if (result != null && result is IconData) {
           _secret.icon = result;
-          DB().updateSecret(_secret);
+          DB().updateSecret(_secret, _encryptionKey);
           setState(() {});
         }
         break;
@@ -108,7 +108,7 @@ class _OTPListTileState extends State<OTPListTile> {
         );
         if (result != null && result is List<String>) {
           _secret.tags = result;
-          DB().updateSecret(_secret);
+          DB().updateSecret(_secret, _encryptionKey);
         }
         break;
       default:
