@@ -50,7 +50,7 @@ class _DecryptPageState extends State<DecryptPage> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          OTPsListPage(_listOfSecrets),
+                          OTPsListPage(_listOfSecrets, _key),
                     ),
                   );
                 } else {
