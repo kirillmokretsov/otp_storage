@@ -47,7 +47,7 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
                     // TODO: add check that key is valid
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    final map = Utils.getEncryptedDecryptedTest(prefs, _key);
+                    final map = Utils.getEncryptedDecryptedTest(_key);
                     prefs.setBool('key_exist', true);
                     prefs.setString('decrypted_test', map['decrypted_test']);
                     prefs.setString('encrypted_test', map['encrypted_test']);

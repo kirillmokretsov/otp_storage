@@ -191,7 +191,7 @@ class Utils {
     }
   }
 
-  static Map<String, String> getEncryptedDecryptedTest(SharedPreferences prefs, String _key) {
+  static Map<String, String> getEncryptedDecryptedTest(String _key) {
     String decrypted = 'Fox-fox is fast but key is faster';
     final key = encrypt.Key.fromUtf8(_key);
     final encrypter = encrypt.Encrypter(encrypt.AES(key));
