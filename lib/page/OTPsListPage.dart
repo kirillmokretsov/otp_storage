@@ -9,17 +9,19 @@ import 'QRScanner.dart';
 
 class OTPsListPage extends StatefulWidget {
   final List<Secret> _listOfSecrets;
+  final String _key;
 
-  const OTPsListPage(this._listOfSecrets, {Key key}) : super(key: key);
+  const OTPsListPage(this._listOfSecrets, this._key, {Key key}) : super(key: key);
 
   @override
-  _OTPsListPageState createState() => _OTPsListPageState(_listOfSecrets);
+  _OTPsListPageState createState() => _OTPsListPageState(_listOfSecrets, _key);
 }
 
 class _OTPsListPageState extends State<OTPsListPage> {
   final List<Secret> _listOfSecrets;
+  final String _key;
 
-  _OTPsListPageState(this._listOfSecrets);
+  _OTPsListPageState(this._listOfSecrets, this._key);
 
   Widget buildTile(BuildContext context, int index) =>
       OTPListTile(_listOfSecrets[index]);
