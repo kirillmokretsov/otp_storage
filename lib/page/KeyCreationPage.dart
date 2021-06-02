@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otp_storage/database/Database.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'OTPsListPage.dart';
 
@@ -43,6 +44,8 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
                 ElevatedButton(
                   onPressed: () async {
                     // TODO: add check that key is valid
+                    (await SharedPreferences.getInstance())
+                        .setBool('key_exist', true);
                     List<Secret> _listOfSecrets = await DB().getSecrets();
                     Navigator.pushReplacement(
                       context,
