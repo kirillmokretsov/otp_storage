@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:otp_storage/database/Database.dart';
-
-import 'page/OTPsListPage.dart';
-import 'datamodel/SecretDataModel.dart';
+import 'package:otp_storage/page/DecryptPage.dart';
+import 'package:otp_storage/page/KeyCreationPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO: add time indicator (maybe https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 // TODO: add encryption
@@ -14,14 +14,21 @@ void main() async {
   // Strangely, async method shouldn't be called in constructor
   // even if you await database in other methods
   await DB().initDB();
-  List<Secret> _listOfSecrets = await DB().getSecrets();
-  runApp(MyApp(_listOfSecrets));
+
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  Widget home;
+  if (sharedPreferences.getBool('key_exist') ?? false) {
+    home = DecryptPage();
+  } else {
+    home = KeyCreationPage();
+  }
+  runApp(MyApp(home));
 }
 
 class MyApp extends StatelessWidget {
-  final List<Secret> _listOfSecrets;
+  final Widget home;
 
-  MyApp(this._listOfSecrets);
+  MyApp(this.home);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         accentColor: Colors.amberAccent,
       ),
-      home: OTPsListPage(_listOfSecrets),
+      home: home,
     );
   }
 }
