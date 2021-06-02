@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:recase/recase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
-import 'package:crypto/crypto.dart';
 
 import '../datamodel/SecretDataModel.dart';
 import '../enum/OTPType.dart';
