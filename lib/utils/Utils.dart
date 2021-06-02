@@ -188,5 +188,6 @@ class Utils {
       final encrypted = encrypt.Encrypted.fromBase64(encryptedTest);
       final decrypted = encrypter.decrypt(encrypted);
       return decryptedTest == decrypted;
+    }
   }
 }
