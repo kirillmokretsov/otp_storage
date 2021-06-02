@@ -27,13 +27,13 @@ Now you can get apk in ``build/app/outputs/flutter-apk/app-release.apk``
 
 ## Screenshots
 
-<img src="./github/static/images/1.jpg" alt="drawing" width="540"/>
+<img src="./github/static/images/1.png" alt="drawing" width="540"/>
 
-<img src="./github/static/images/2.jpg" alt="drawing" width="540"/>
+<img src="./github/static/images/2.png" alt="drawing" width="540"/>
 
-<img src="./github/static/images/3.jpg" alt="drawing" width="540"/>
+<img src="./github/static/images/3.png" alt="drawing" width="540"/>
 
-<img src="./github/static/images/4.jpg" alt="drawing" width="540"/>
+<img src="./github/static/images/4.png" alt="drawing" width="540"/>
 
 ## License
 
