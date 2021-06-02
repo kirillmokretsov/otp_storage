@@ -5,15 +5,19 @@ import 'package:otp_storage/enum/OTPType.dart';
 
 class EditSecretDialog extends StatefulWidget {
   final Secret _secret;
+  final String _encryptionKey;
 
-  const EditSecretDialog(this._secret, {Key key}) : super(key: key);
+  const EditSecretDialog(this._secret, this._encryptionKey, {Key key})
+      : super(key: key);
 
   @override
-  _EditSecretDialogState createState() => _EditSecretDialogState(_secret);
+  _EditSecretDialogState createState() =>
+      _EditSecretDialogState(_secret, _encryptionKey);
 }
 
 class _EditSecretDialogState extends State<EditSecretDialog> {
   Secret _secret;
+  String _encryptionKey;
   OTPType _type = OTPType.TOTP;
   Algorithm _algorithm = Algorithm.SHA1;
 
@@ -25,7 +29,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  _EditSecretDialogState(this._secret);
+  _EditSecretDialogState(this._secret, this._encryptionKey);
 
   @override
   void initState() {
@@ -95,7 +99,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
         TextButton(
           onPressed: () {
             if (_key.currentState.validate()) {
-              var map = _secret.toMap();
+              var map = _secret.toMap(_encryptionKey);
               map['secret'] = _secretController.text;
               map['type'] = _type.toString();
               map['label'] = _labelController.text;
@@ -104,7 +108,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
               map['period'] = int.parse(_counterOrPeriodController.text);
               map['digits'] = int.parse(_digitsController.text);
               map['algorithm'] = _algorithm.toString();
-              _secret = Secret.fromMap(map);
+              _secret = Secret.fromMap(map, _encryptionKey);
               Navigator.pop(context, _secret);
             }
           },
