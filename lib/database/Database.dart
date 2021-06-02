@@ -29,35 +29,35 @@ class DB {
     );
   }
 
-  Future<void> insertSecret(Secret secret) async {
+  Future<void> insertSecret(Secret secret, String _encryptionKey) async {
     final db = await database;
-    await db.insert(tableName, secret.toMap());
+    await db.insert(tableName, secret.toMap(_encryptionKey));
   }
 
-  Future<void> updateSecret(Secret secret) async {
+  Future<void> updateSecret(Secret secret, String _encryptionKey) async {
     final db = await database;
     await db.update(
       tableName,
-      secret.toMap(),
+      secret.toMap(_encryptionKey),
       where: 'id = ?',
       whereArgs: [secret.id],
     );
   }
 
-  Future<Secret> getSecretById(String id) async {
+  Future<Secret> getSecretById(String id, String _encryptionKey) async {
     final db = await database;
     final Map<String, dynamic> map =
         (await db.query(tableName, where: 'id = ?', whereArgs: [id]))[0];
-    return Secret.fromMap(map);
+    return Secret.fromMap(map, _encryptionKey);
   }
 
-  Future<List<Secret>> getSecrets() async {
+  Future<List<Secret>> getSecrets(String _encryptionKey) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableName);
     return List.generate(
       maps.length,
       (index) {
-        return Secret.fromMap(maps[index]);
+        return Secret.fromMap(maps[index], _encryptionKey);
       },
     );
   }
