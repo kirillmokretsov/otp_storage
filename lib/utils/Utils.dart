@@ -190,4 +190,16 @@ class Utils {
       return decryptedTest == decrypted;
     }
   }
+
+  static Map<String, String> getEncryptedDecryptedTest(SharedPreferences prefs, String _key) {
+    String decrypted = 'Fox-fox is fast but key is faster';
+    final key = encrypt.Key.fromUtf8(_key);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    final encrypted = encrypter.encrypt(decrypted);
+    return {
+      'decrypted_test': decrypted,
+      'encrypted_test': encrypted.base64
+    };
+  }
+
 }

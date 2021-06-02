@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otp_storage/database/Database.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
+import 'package:otp_storage/utils/Utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'OTPsListPage.dart';
@@ -44,8 +45,12 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
                 ElevatedButton(
                   onPressed: () async {
                     // TODO: add check that key is valid
-                    (await SharedPreferences.getInstance())
-                        .setBool('key_exist', true);
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    final map = Utils.getEncryptedDecryptedTest(prefs, _key);
+                    prefs.setBool('key_exist', true);
+                    prefs.setString('decrypted_test', map['decrypted_test']);
+                    prefs.setString('encrypted_test', map['encrypted_test']);
                     List<Secret> _listOfSecrets = await DB().getSecrets();
                     Navigator.pushReplacement(
                       context,
