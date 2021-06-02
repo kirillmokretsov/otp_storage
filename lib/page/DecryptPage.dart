@@ -1,5 +1,8 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
+import 'package:otp_storage/database/Database.dart';
+import 'package:otp_storage/datamodel/SecretDataModel.dart';
+import 'package:otp_storage/page/OTPsListPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DecryptPage extends StatefulWidget {
@@ -54,7 +57,14 @@ class _DecryptPageState extends State<DecryptPage> {
                   final encrypted = encrypt.Encrypted.fromBase64(encryptedTest);
                   final decrypted = encrypter.decrypt(encrypted);
                   if (decrypted == decryptedTest) {
-                    // TODO: decrypt database and send to OTPsListPage
+                    List<Secret> _listOfSecrets = await DB().getSecrets();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            OTPsListPage(_listOfSecrets),
+                      ),
+                    );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
