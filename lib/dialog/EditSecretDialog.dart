@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otp/otp.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
 import 'package:otp_storage/enum/OTPType.dart';
+import 'package:otp_storage/utils/Utils.dart';
 
 class EditSecretDialog extends StatefulWidget {
   final Secret _secret;
@@ -100,7 +101,7 @@ class _EditSecretDialogState extends State<EditSecretDialog> {
           onPressed: () {
             if (_key.currentState.validate()) {
               var map = _secret.toMap(_encryptionKey);
-              map['secret'] = _secretController.text;
+              map['secret'] = Utils.encryptSecret(_secretController.text, _encryptionKey);
               map['type'] = _type.toString();
               map['label'] = _labelController.text;
               map['issuer'] = _issuerController.text;
