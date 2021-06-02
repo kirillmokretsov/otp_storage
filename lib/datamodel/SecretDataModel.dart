@@ -31,11 +31,11 @@ class Secret {
     this.icon,
   });
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap(String _encryptionKey) => {
         'id': id,
         'type': type.toString(),
         'label': label,
-        'secret': secret,
+        'secret': Utils.encryptSecret(secret, _encryptionKey),
         'issuer': issuer,
         'counter': counter,
         'period': period,
@@ -45,11 +45,11 @@ class Secret {
         'icon': Utils.toJsonString(icon),
       };
 
-  static Secret fromMap(Map<String, dynamic> map) => Secret(
+  static Secret fromMap(Map<String, dynamic> map, String _encryptionKey) => Secret(
         id: map['id'],
         type: Utils.parseOTPType(map['type']),
         label: map['label'],
-        secret: map['secret'],
+        secret: Utils.decryptSecret(map['secret'], _encryptionKey),
         issuer: map['issuer'],
         counter: map['counter'],
         period: map['period'],
