@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/cupertino.dart';
 import 'package:otp/otp.dart';
 import 'package:recase/recase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
 
 import '../datamodel/SecretDataModel.dart';
 import '../enum/OTPType.dart';
@@ -180,13 +180,14 @@ class Utils {
     String encryptedTest = _test.getString('encrypted_test') ?? '';
     String decryptedTest = _test.getString('decrypted_test') ?? '';
     if (encryptedTest == '' || decryptedTest == '') {
-      throw Exception(
-          'No encrypted_test or decrypted_test shared preference');
+      throw Exception('No encrypted_test or decrypted_test shared preference');
     } else {
       final key = encrypt.Key.fromUtf8(_key);
-      final encrypter = encrypt.Encrypter(encrypt.AES(key));
+      final encrypter =
+          encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
       final encrypted = encrypt.Encrypted.fromBase64(encryptedTest);
-      final decrypted = encrypter.decrypt(encrypted);
+      final decrypted =
+          encrypter.decrypt(encrypted, iv: encrypt.IV.fromUtf8('input'));
       return decryptedTest == decrypted;
     }
   }
@@ -194,24 +195,25 @@ class Utils {
   static Map<String, String> getEncryptedDecryptedTest(String _key) {
     String decrypted = 'Fox-fox is fast but key is faster';
     final key = encrypt.Key.fromUtf8(_key);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    final encrypted = encrypter.encrypt(decrypted);
-    return {
-      'decrypted_test': decrypted,
-      'encrypted_test': encrypted.base64
-    };
+    final encrypter =
+        encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
+    final encrypted =
+        encrypter.encrypt(decrypted, iv: encrypt.IV.fromUtf8('input'));
+    return {'decrypted_test': decrypted, 'encrypted_test': encrypted.base64};
   }
 
   static String decryptSecret(String encryptedSecret, String _key) {
     final key = encrypt.Key.fromUtf8(_key);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    return encrypter.decrypt64(encryptedSecret);
+    final encrypter =
+        encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
+    return encrypter.decrypt64(encryptedSecret,
+        iv: encrypt.IV.fromUtf8('input'));
   }
 
   static String encryptSecret(String secret, String _key) {
     final key = encrypt.Key.fromUtf8(_key);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    return encrypter.encrypt(secret).base64;
+    final encrypter =
+        encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
+    return encrypter.encrypt(secret, iv: encrypt.IV.fromUtf8('input')).base64;
   }
-
 }
