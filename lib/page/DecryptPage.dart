@@ -45,7 +45,7 @@ class _DecryptPageState extends State<DecryptPage> {
             ElevatedButton(
               onPressed: () async {
                 if (await Utils.isKeyIsRight(_key)) {
-                  List<Secret> _listOfSecrets = await DB().getSecrets();
+                  List<Secret> _listOfSecrets = await DB().getSecrets(_key);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
