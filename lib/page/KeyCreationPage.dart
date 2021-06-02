@@ -51,7 +51,7 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
                     prefs.setBool('key_exist', true);
                     prefs.setString('decrypted_test', map['decrypted_test']);
                     prefs.setString('encrypted_test', map['encrypted_test']);
-                    List<Secret> _listOfSecrets = await DB().getSecrets();
+                    List<Secret> _listOfSecrets = await DB().getSecrets(_key);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
