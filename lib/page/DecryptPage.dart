@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_storage/database/Database.dart';
 import 'package:otp_storage/datamodel/SecretDataModel.dart';
@@ -21,10 +22,13 @@ class _DecryptPageState extends State<DecryptPage> {
         title: Text('Decrypt database'),
         // TODO: add help
       ),
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.fromLTRB(64, 0, 64, 0),
+            child: TextField(
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(),
@@ -42,29 +46,29 @@ class _DecryptPageState extends State<DecryptPage> {
                 setState(() {});
               },
             ),
-            ElevatedButton(
-              onPressed: () async {
-                if (await Utils.isKeyIsRight(_key)) {
-                  List<Secret> _listOfSecrets = await DB().getSecrets(_key);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          OTPsListPage(_listOfSecrets, _key),
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Wrong key!'),
-                    ),
-                  );
-                }
-              },
-              child: Text('Decrypt'),
-            ),
-          ],
-        ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (await Utils.isKeyIsRight(_key)) {
+                List<Secret> _listOfSecrets = await DB().getSecrets(_key);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        OTPsListPage(_listOfSecrets, _key),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Wrong key!'),
+                  ),
+                );
+              }
+            },
+            child: Text('Decrypt'),
+          ),
+        ],
       ),
     );
   }

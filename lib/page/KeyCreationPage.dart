@@ -28,10 +28,13 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
         ),
         body: Form(
           key: _formKey,
-          child: Center(
-            child: Column(
-              children: [
-                TextFormField(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(64, 0, 64, 0),
+                child: TextFormField(
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(),
@@ -42,28 +45,28 @@ class _KeyCreationPageState extends State<KeyCreationPage> {
                   onChanged: (value) => _key = value,
                   onEditingComplete: () => FocusScope.of(context).unfocus(),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    // TODO: add check that key is valid
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    final map = Utils.getEncryptedDecryptedTest(_key);
-                    prefs.setBool('key_exist', true);
-                    prefs.setString('decrypted_test', map['decrypted_test']);
-                    prefs.setString('encrypted_test', map['encrypted_test']);
-                    List<Secret> _listOfSecrets = await DB().getSecrets(_key);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            OTPsListPage(_listOfSecrets, _key),
-                      ),
-                    );
-                  },
-                  child: Text('Save key'),
-                ),
-              ],
-            ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  // TODO: add check that key is valid
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  final map = Utils.getEncryptedDecryptedTest(_key);
+                  prefs.setBool('key_exist', true);
+                  prefs.setString('decrypted_test', map['decrypted_test']);
+                  prefs.setString('encrypted_test', map['encrypted_test']);
+                  List<Secret> _listOfSecrets = await DB().getSecrets(_key);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          OTPsListPage(_listOfSecrets, _key),
+                    ),
+                  );
+                },
+                child: Text('Save key'),
+              ),
+            ],
           ),
         ),
       );
