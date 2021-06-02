@@ -7,6 +7,7 @@ import 'datamodel/SecretDataModel.dart';
 
 // TODO: add time indicator (maybe https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 // TODO: add encryption
+// TODO: use tips from this article https://medium.com/flutter-community/how-to-make-a-flutter-app-with-high-security-880ef0aa54da
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
