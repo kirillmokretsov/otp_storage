@@ -9,22 +9,22 @@ import 'QRScanner.dart';
 
 class OTPsListPage extends StatefulWidget {
   final List<Secret> _listOfSecrets;
-  final String _key;
+  final String _encryptionKey;
 
-  const OTPsListPage(this._listOfSecrets, this._key, {Key key}) : super(key: key);
+  const OTPsListPage(this._listOfSecrets, this._encryptionKey, {Key key}) : super(key: key);
 
   @override
-  _OTPsListPageState createState() => _OTPsListPageState(_listOfSecrets, _key);
+  _OTPsListPageState createState() => _OTPsListPageState(_listOfSecrets, _encryptionKey);
 }
 
 class _OTPsListPageState extends State<OTPsListPage> {
   final List<Secret> _listOfSecrets;
-  final String _key;
+  final String _encryptionKey;
 
-  _OTPsListPageState(this._listOfSecrets, this._key);
+  _OTPsListPageState(this._listOfSecrets, this._encryptionKey);
 
   Widget buildTile(BuildContext context, int index) =>
-      OTPListTile(_listOfSecrets[index]);
+      OTPListTile(_listOfSecrets[index], _encryptionKey);
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +63,10 @@ class _OTPsListPageState extends State<OTPsListPage> {
 
       Secret newSecret = Utils.parseUri(uri);
       id = newSecret.id;
-      await DB().insertSecret(newSecret);
+      await DB().insertSecret(newSecret, _encryptionKey);
     }
 
-    Secret secret = await DB().getSecretById(id);
+    Secret secret = await DB().getSecretById(id, _encryptionKey);
 
     setState(() {
       _listOfSecrets.add(secret);
