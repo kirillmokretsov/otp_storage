@@ -51,7 +51,7 @@ class _TagsDialogState extends State<TagsDialog> {
               return TextEditorDialog('');
             },
           );
-          if (result != null && result is String) {
+          if (result != null && result is String && result.isNotEmpty) {
             tags.add(result);
             setState(() {});
           }
@@ -85,7 +85,7 @@ class _TagsDialogState extends State<TagsDialog> {
               context: context,
               builder: (BuildContext context) => TextEditorDialog(tags[index]),
             );
-            if (result != null && result is String) {
+            if (result != null && result is String && result.isNotEmpty) {
               tags[index] = result;
             }
           }
