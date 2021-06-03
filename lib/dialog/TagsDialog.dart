@@ -48,7 +48,7 @@ class _TagsDialogState extends State<TagsDialog> {
           final result = await showDialog(
             context: context,
             builder: (BuildContext context) {
-              return TextEditorDialog('');
+              return TextEditorDialog(null);
             },
           );
           if (result != null && result is String && result.isNotEmpty) {
@@ -107,30 +107,6 @@ class TextEditorDialog extends StatefulWidget {
 
 class _TextEditorDialogState extends State<TextEditorDialog> {
   String tagName;
-  bool insertedOld = false;
-
-  final _controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _controller.addListener(() {
-      if (insertedOld == false) {
-        _controller.value = TextEditingValue(
-          text: tagName,
-        );
-        insertedOld = true;
-      } else {
-        tagName = _controller.text;
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   _TextEditorDialogState(this.tagName);
 
@@ -139,8 +115,8 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
     return Container(
       child: AlertDialog(
         title: const Text("Enter new tag"),
-        content: TextField(
-          controller: _controller,
+        content: TextFormField(
+          initialValue: tagName,
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(),
@@ -148,9 +124,10 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
             hintText: 'Tag',
           ),
           onChanged: (string) {
+            tagName = string;
             setState(() {});
           },
-          onSubmitted: _save,
+          onFieldSubmitted: _save,
         ),
         actions: [
           TextButton(
