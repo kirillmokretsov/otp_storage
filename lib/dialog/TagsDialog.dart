@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: allow delete tags
-// TODO: allow edit tags
-
 class TagsDialog extends StatefulWidget {
   final List<String> tags;
 
@@ -48,10 +45,10 @@ class _TagsDialogState extends State<TagsDialog> {
           final result = await showDialog(
             context: context,
             builder: (BuildContext context) {
-              return TextEditorDialog('');
+              return TagEditorDialog(null);
             },
           );
-          if (result != null && result is String) {
+          if (result != null && result is String && result.isNotEmpty) {
             tags.add(result);
             setState(() {});
           }
@@ -61,60 +58,62 @@ class _TagsDialogState extends State<TagsDialog> {
         ),
       );
     } else {
-      return ListTile(
-        title: Text(
-          tags[index],
+      // TODO: dismissible do not know about dialog borders
+      return Dismissible(
+        key: UniqueKey(),
+        child: ListTile(
+          title: Text(
+            tags[index],
+          ),
         ),
+        background: Container(
+          color: Colors.green,
+          child: Icon(Icons.edit),
+        ),
+        secondaryBackground: Container(
+          color: Colors.red,
+          child: Icon(Icons.delete),
+        ),
+        onDismissed: (direction) async {
+          if (direction == DismissDirection.endToStart) {
+            tags.removeAt(index);
+          } else if (direction == DismissDirection.startToEnd) {
+            final result = await showDialog(
+              context: context,
+              builder: (BuildContext context) => TagEditorDialog(tags[index]),
+            );
+            if (result != null && result is String && result.isNotEmpty) {
+              tags[index] = result;
+            }
+          }
+          setState(() {});
+        },
       );
     }
   }
 }
 
-class TextEditorDialog extends StatefulWidget {
+class TagEditorDialog extends StatefulWidget {
   final String preEdited;
 
-  const TextEditorDialog(this.preEdited, {Key key}) : super(key: key);
+  const TagEditorDialog(this.preEdited, {Key key}) : super(key: key);
 
   @override
-  _TextEditorDialogState createState() => _TextEditorDialogState(preEdited);
+  _TagEditorDialogState createState() => _TagEditorDialogState(preEdited);
 }
 
-class _TextEditorDialogState extends State<TextEditorDialog> {
+class _TagEditorDialogState extends State<TagEditorDialog> {
   String tagName;
-  bool insertedOld = false;
 
-  final _controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _controller.addListener(() {
-      if (insertedOld == false) {
-        _controller.value = TextEditingValue(
-          text: tagName,
-        );
-        insertedOld = true;
-      } else {
-        tagName = _controller.text;
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  _TextEditorDialogState(this.tagName);
+  _TagEditorDialogState(this.tagName);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: AlertDialog(
         title: const Text("Enter new tag"),
-        content: TextField(
-          controller: _controller,
+        content: TextFormField(
+          initialValue: tagName,
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(),
@@ -122,9 +121,10 @@ class _TextEditorDialogState extends State<TextEditorDialog> {
             hintText: 'Tag',
           ),
           onChanged: (string) {
+            tagName = string;
             setState(() {});
           },
-          onSubmitted: _save,
+          onFieldSubmitted: _save,
         ),
         actions: [
           TextButton(
