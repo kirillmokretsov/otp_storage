@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: allow delete tags
-// TODO: allow edit tags
-
 class TagsDialog extends StatefulWidget {
   final List<String> tags;
 
