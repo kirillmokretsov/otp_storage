@@ -61,10 +61,36 @@ class _TagsDialogState extends State<TagsDialog> {
         ),
       );
     } else {
-      return ListTile(
-        title: Text(
-          tags[index],
+      // TODO: dismissible do not know about dialog borders
+      return Dismissible(
+        key: UniqueKey(),
+        child: ListTile(
+          title: Text(
+            tags[index],
+          ),
         ),
+        background: Container(
+          color: Colors.green,
+          child: Icon(Icons.edit),
+        ),
+        secondaryBackground: Container(
+          color: Colors.red,
+          child: Icon(Icons.delete),
+        ),
+        onDismissed: (direction) async {
+          if (direction == DismissDirection.endToStart) {
+            tags.removeAt(index);
+          } else if (direction == DismissDirection.startToEnd) {
+            final result = await showDialog(
+              context: context,
+              builder: (BuildContext context) => TextEditorDialog(tags[index]),
+            );
+            if (result != null && result is String) {
+              tags[index] = result;
+            }
+          }
+          setState(() {});
+        },
       );
     }
   }
