@@ -48,7 +48,7 @@ class _TagsDialogState extends State<TagsDialog> {
           final result = await showDialog(
             context: context,
             builder: (BuildContext context) {
-              return TextEditorDialog(null);
+              return TagEditorDialog(null);
             },
           );
           if (result != null && result is String && result.isNotEmpty) {
@@ -83,7 +83,7 @@ class _TagsDialogState extends State<TagsDialog> {
           } else if (direction == DismissDirection.startToEnd) {
             final result = await showDialog(
               context: context,
-              builder: (BuildContext context) => TextEditorDialog(tags[index]),
+              builder: (BuildContext context) => TagEditorDialog(tags[index]),
             );
             if (result != null && result is String && result.isNotEmpty) {
               tags[index] = result;
@@ -96,19 +96,19 @@ class _TagsDialogState extends State<TagsDialog> {
   }
 }
 
-class TextEditorDialog extends StatefulWidget {
+class TagEditorDialog extends StatefulWidget {
   final String preEdited;
 
-  const TextEditorDialog(this.preEdited, {Key key}) : super(key: key);
+  const TagEditorDialog(this.preEdited, {Key key}) : super(key: key);
 
   @override
-  _TextEditorDialogState createState() => _TextEditorDialogState(preEdited);
+  _TagEditorDialogState createState() => _TagEditorDialogState(preEdited);
 }
 
-class _TextEditorDialogState extends State<TextEditorDialog> {
+class _TagEditorDialogState extends State<TagEditorDialog> {
   String tagName;
 
-  _TextEditorDialogState(this.tagName);
+  _TagEditorDialogState(this.tagName);
 
   @override
   Widget build(BuildContext context) {
