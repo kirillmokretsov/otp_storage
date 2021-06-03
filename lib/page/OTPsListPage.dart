@@ -11,10 +11,12 @@ class OTPsListPage extends StatefulWidget {
   final List<Secret> _listOfSecrets;
   final String _encryptionKey;
 
-  const OTPsListPage(this._listOfSecrets, this._encryptionKey, {Key key}) : super(key: key);
+  const OTPsListPage(this._listOfSecrets, this._encryptionKey, {Key key})
+      : super(key: key);
 
   @override
-  _OTPsListPageState createState() => _OTPsListPageState(_listOfSecrets, _encryptionKey);
+  _OTPsListPageState createState() =>
+      _OTPsListPageState(_listOfSecrets, _encryptionKey);
 }
 
 class _OTPsListPageState extends State<OTPsListPage> {
@@ -23,8 +25,26 @@ class _OTPsListPageState extends State<OTPsListPage> {
 
   _OTPsListPageState(this._listOfSecrets, this._encryptionKey);
 
-  Widget buildTile(BuildContext context, int index) =>
-      OTPListTile(_listOfSecrets[index], _encryptionKey);
+  Widget buildTile(BuildContext context, int index) => Dismissible(
+        key: UniqueKey(),
+        child: OTPListTile(_listOfSecrets[index], _encryptionKey),
+        background: Container(
+          color: Colors.red,
+          child: Icon(Icons.delete),
+        ),
+        secondaryBackground: Container(
+          color: Colors.red,
+          child: Icon(Icons.delete),
+        ),
+        onDismissed: (direction) {
+          if (direction == DismissDirection.endToStart ||
+              direction == DismissDirection.startToEnd) {
+            DB().deleteSecret(_listOfSecrets[index]);
+            _listOfSecrets.removeAt(index);
+            setState(() {});
+          }
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
